@@ -15,8 +15,10 @@
      Tous les points ci-dessous sont des EMPLACEMENTS, pas des données réelles.
      Diffuser ces valeurs telles quelles serait de la publicité mensongère.
 
-     1. data-placeholder="video"    → les 4 emplacements vidéo
-                                       (hero, aperçu de séance, 2 témoignages)
+     1. data-placeholder="video"    → les 3 emplacements vidéo restants
+                                       (aperçu de séance, 2 témoignages parents)
+                                       La vidéo du hero est en place :
+                                       assets/extrait-seance.mp4
      2. data-placeholder="quote"    → les 3 témoignages écrits et les 2 fiches parents
      3. data-placeholder="price"    → le tarif mensuel et le contenu de l'offre
      4. WHATSAPP_NUMBER             → remplacer 21600000000 (3 occurrences)
@@ -136,6 +138,12 @@ section{padding-block:clamp(46px,9vw,88px)}
 .vid-label b{display:block;font-size:1rem;font-weight:800;line-height:1.3}
 .vid-label span{display:block;font-size:.82rem;color:rgba(255,255,255,.8);margin-top:2px}
 .vid-chip{position:absolute;z-index:3;top:14px;left:14px;padding:5px 11px;border-radius:100px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.34);backdrop-filter:blur(6px);font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff}
+/* Variante verticale, pour une video filmee au format 9:16 (reel) */
+.vid-portrait{aspect-ratio:9/16;max-width:320px;margin-inline:auto;cursor:pointer}
+/* Une fois la lecture lancee, tout l'habillage s'efface */
+.vid::after,.vid-chip,.vid-play,.vid-label{transition:opacity .25s ease}
+.vid.playing::after,.vid.playing .vid-chip,.vid.playing .vid-play,.vid.playing .vid-label{opacity:0;pointer-events:none}
+.vid.playing{cursor:default}
 
 /* ---------- RECONNAISSANCE (problème) ---------- */
 .recog{background:#fff}
@@ -389,37 +397,25 @@ section{padding-block:clamp(46px,9vw,88px)}
 
     </div>
 
-    <!-- VISUEL PRINCIPAL — data-placeholder="video"
-         Remplacer par un extrait réel de séance (20–30 s, sous-titré, sans son requis).
-         Idéal : plan écran partagé enfant + professeur qui sourit. -->
+    <!-- VISUEL PRINCIPAL — vidéo fournie par CasaClass, en place. -->
     <div class="rv" data-d="1">
-      <button class="vid" data-video="hero" data-placeholder="video" aria-label="Voir une séance en 40 secondes">
-        <svg class="vid-bg" viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <defs>
-            <linearGradient id="vg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1E3A8A"/><stop offset="60%" stop-color="#2E7FE8"/><stop offset="100%" stop-color="#F5A623"/></linearGradient>
-          </defs>
-          <rect width="400" height="320" fill="url(#vg)"/>
-          <g opacity=".22" fill="#fff">
-            <circle cx="330" cy="60" r="70"/><circle cx="60" cy="270" r="86"/>
-          </g>
-          <!-- fausse fenêtre de visio -->
-          <g opacity=".95">
-            <rect x="56" y="62" width="288" height="176" rx="14" fill="#0F1F4A" opacity=".55"/>
-            <rect x="66" y="72" width="132" height="156" rx="10" fill="#fff" opacity=".13"/>
-            <rect x="206" y="72" width="128" height="156" rx="10" fill="#fff" opacity=".08"/>
-            <circle cx="132" cy="128" r="26" fill="#fff" opacity=".3"/>
-            <path d="M106 186a26 26 0 0 1 52 0Z" fill="#fff" opacity=".3"/>
-            <circle cx="270" cy="128" r="26" fill="#fff" opacity=".22"/>
-            <path d="M244 186a26 26 0 0 1 52 0Z" fill="#fff" opacity=".22"/>
-          </g>
-        </svg>
+      <!-- Vidéo verticale 720x1280, 38 s. preload="metadata" : seul l'en-tete
+           est telecharge au chargement de la page, le fichier complet ne part
+           qu'au clic. Le fragment #t=0.5 fait afficher l'image a 0,5 s en
+           guise de vignette, sans fichier poster separe. -->
+      <div class="vid vid-portrait" data-video="hero">
+        <video class="vid-bg" preload="metadata" playsinline
+               src="assets/extrait-seance.mp4#t=0.5"
+               aria-label="Extrait d'une séance CasaClass, 38 secondes"></video>
         <span class="vid-chip">Extrait de séance</span>
-        <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg></span>
-        <span class="vid-label"><b>Voir à quoi ressemble une séance</b><span>40 secondes · son non nécessaire</span></span>
+        <button class="vid-play" type="button" aria-label="Lire l'extrait de séance">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>
+        </button>
+        <span class="vid-label"><b>Voir à quoi ressemble une séance</b><span>38 secondes</span></span>
         <span class="vplayer" data-player>
-          <span><b>Emplacement vidéo</b><span>Insérez ici un extrait réel de séance (iframe YouTube/Vimeo ou balise &lt;video&gt;).</span></span>
+          <span><b>Vidéo indisponible</b><span>Le fichier <code>assets/extrait-seance.mp4</code> n'a pas pu être chargé depuis cette page.</span></span>
         </span>
-      </button>
+      </div>
 
       <!-- Qualification : place le bon parent dans le bon état d'esprit,
            et écarte les clics hors cible (leads non qualifiés). -->
@@ -893,15 +889,29 @@ section{padding-block:clamp(46px,9vw,88px)}
     var o=$('#faqList .faq-item.open');if(o){var p=o.querySelector('.faq-a');p.style.height=p.scrollHeight+'px'}
   },120)});
 
-  /* ---------- Emplacements vidéo ----------
-     Pour brancher une vraie vidéo : remplacez le corps par l'injection
-     d'une <iframe> ou d'une balise <video autoplay playsinline>.         */
+  /* ---------- Vidéos ----------
+     Un bloc contenant une balise video est lu au clic. Un bloc sans video
+     est un emplacement vide : il affiche son message. Pour brancher les
+     emplacements restants, ajoutez-y une balise video sur le meme modele
+     que le hero, ou une iframe YouTube/Vimeo.                            */
   $$('[data-video]').forEach(function(v){
+    var media=v.querySelector('video');
+    var note=v.querySelector('[data-player]');
+
     v.addEventListener('click',function(){
-      var p=v.querySelector('[data-player]');
-      if(p) p.classList.add('show');
+      if(v.classList.contains('playing')) return; // les controles natifs prennent le relais
       track('Video_Play',{id:v.getAttribute('data-video')});
+
+      if(!media){ if(note) note.classList.add('show'); return; } // emplacement encore vide
+
+      v.classList.add('playing');
+      media.controls=true;
+      var pr=media.play();
+      if(pr&&pr.catch) pr.catch(function(){}); // lecture refusee : les controles restent utilisables
     });
+
+    // Fichier absent ou illisible : on affiche le message plutot qu'un cadre noir
+    if(media) media.addEventListener('error',function(){ if(note) note.classList.add('show'); });
   });
 
   /* ---------- Modale : on DÉPLACE le formulaire (source unique) ---------- */

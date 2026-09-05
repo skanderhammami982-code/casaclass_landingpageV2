@@ -23,11 +23,22 @@ de la publicité mensongère.
 
 | Marqueur | À remplacer par |
 |---|---|
-| `data-placeholder="video"` | 4 vidéos : hero, aperçu de séance, 2 témoignages parents |
+| `data-placeholder="video"` | 3 vidéos : aperçu de séance, 2 témoignages parents |
 | `data-placeholder="quote"` | Témoignages écrits et fiches parents |
 | `data-placeholder="price"` | Tarif mensuel réel et contenu de l'offre |
 | `WHATSAPP_NUMBER` | Numéro WhatsApp au format international (3 occurrences de `21600000000`) |
 | `sendLead()` | Webhook CRM / Make / Zapier, et décommenter l'appel `fbq` du pixel Meta |
+
+## Vidéos
+
+La vidéo du hero est en place : `assets/extrait-seance.mp4` (720×1280, 38 s, 4,4 Mo).
+Elle est chargée en `preload="metadata"` — seul l'en-tête part au chargement de la
+page, le fichier complet ne se télécharge qu'au clic. Le fragment `#t=0.5` fait
+afficher l'image à 0,5 s en guise de vignette, sans fichier poster séparé.
+
+Pour brancher les emplacements restants, ajoutez une balise `<video>` dans le bloc
+`.vid` concerné, sur le même modèle que le hero. Le script détecte automatiquement
+la présence d'une balise `video` et bascule du message d'emplacement vers la lecture.
 
 ## Structure de la page
 

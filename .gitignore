@@ -7,6 +7,9 @@ desktop.ini
 .vscode/
 .idea/
 
+# Build de previsualisation genere (video inlinee en base64, ~6 Mo)
+preview.html
+
 # Documents internes AdScale — ne jamais publier
 *.docx
 *.pdf
