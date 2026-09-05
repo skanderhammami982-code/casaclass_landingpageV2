@@ -23,9 +23,7 @@ de la publicité mensongère.
 
 | Marqueur | À remplacer par |
 |---|---|
-| `data-placeholder="stat"` | Note moyenne, nombre de familles, de professeurs, taux de poursuite |
-| `data-placeholder="video"` | 3 vidéos : hero, aperçu de séance, 2 témoignages parents |
-| `data-placeholder="teacher"` | Photos, prénoms et parcours réels des professeurs |
+| `data-placeholder="video"` | 4 vidéos : hero, aperçu de séance, 2 témoignages parents |
 | `data-placeholder="quote"` | Témoignages écrits et fiches parents |
 | `data-placeholder="price"` | Tarif mensuel réel et contenu de l'offre |
 | `WHATSAPP_NUMBER` | Numéro WhatsApp au format international (3 occurrences de `21600000000`) |
@@ -34,15 +32,18 @@ de la publicité mensongère.
 ## Structure de la page
 
 1. Hero — promesse + vidéo d'une séance réelle
-2. Bandeau de chiffres clés
-3. « Est-ce pour vous ? » — 4 cartes d'auto-identification
-4. Aperçu de la séance — timeline 45 minutes
-5. Les professeurs
-6. Preuve sociale — 2 vidéos + 3 témoignages
-7. Comment ça marche — 3 étapes
-8. Offre, garantie et comparatif
-9. FAQ — 8 objections
-10. CTA final + formulaire de capture en 2 étapes
+2. « Est-ce pour vous ? » — 4 cartes d'auto-identification
+3. Aperçu de la séance — vidéo
+4. Preuve sociale — 2 vidéos + 3 témoignages
+5. Comment ça marche — 3 étapes
+6. Offre, garantie et comparatif
+7. FAQ — 8 objections
+8. CTA final + formulaire de capture en 2 étapes
+
+Le bandeau de chiffres clés, la section « Les professeurs », la note en étoiles
+du hero et la timeline minute par minute ont été retirés : ils reposaient sur des
+données non encore disponibles. Ils pourront être réintroduits quand les chiffres
+réels, les photos des professeurs et le déroulé validé existeront.
 
 ## Conversion
 

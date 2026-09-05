@@ -15,13 +15,12 @@
      Tous les points ci-dessous sont des EMPLACEMENTS, pas des données réelles.
      Diffuser ces valeurs telles quelles serait de la publicité mensongère.
 
-     1. data-placeholder="stat"     → les 4 chiffres clés + la note 4,9/5
-     2. data-placeholder="video"    → les 3 emplacements vidéo (hero + 2 témoignages)
-     3. data-placeholder="teacher"  → photos, prénoms et parcours des professeurs
-     4. data-placeholder="quote"    → les 3 témoignages écrits
-     5. data-placeholder="price"    → le tarif mensuel et le contenu de l'offre
-     6. WHATSAPP_NUMBER             → remplacer 21600000000 (3 occurrences)
-     7. Le endpoint du formulaire   → voir la fonction sendLead() en bas de page
+     1. data-placeholder="video"    → les 4 emplacements vidéo
+                                       (hero, aperçu de séance, 2 témoignages)
+     2. data-placeholder="quote"    → les 3 témoignages écrits et les 2 fiches parents
+     3. data-placeholder="price"    → le tarif mensuel et le contenu de l'offre
+     4. WHATSAPP_NUMBER             → remplacer 21600000000 (3 occurrences)
+     5. Le endpoint du formulaire   → voir la fonction sendLead() en bas de page
      ============================================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,10 +114,8 @@ section{padding-block:clamp(46px,9vw,88px)}
              radial-gradient(95% 75% at 2% 8%,rgba(46,127,232,.15) 0%,transparent 52%),
              linear-gradient(180deg,#fff 0%,var(--sky) 100%)}
 .hero-grid{display:grid;gap:26px;align-items:center}
-.rating{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 10px;border-radius:100px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh-sm);font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:16px}
 .stars{display:inline-flex;gap:1px}
 .stars svg{width:14px;height:14px;color:var(--gold)}
-.rating em{font-style:normal;font-weight:600;color:var(--muted)}
 .hero h1{margin-bottom:14px}
 .hero .lead{margin-bottom:22px;max-width:520px}
 .hero .lead b{color:var(--ink);font-weight:700}
@@ -140,12 +137,6 @@ section{padding-block:clamp(46px,9vw,88px)}
 .vid-label span{display:block;font-size:.82rem;color:rgba(255,255,255,.8);margin-top:2px}
 .vid-chip{position:absolute;z-index:3;top:14px;left:14px;padding:5px 11px;border-radius:100px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.34);backdrop-filter:blur(6px);font-size:.7rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff}
 
-/* ---------- BANDEAU CHIFFRES ---------- */
-.stats{background:var(--blue-ink);color:#fff;padding-block:clamp(26px,5vw,38px)}
-.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 12px;text-align:center}
-.stat b{display:block;font-family:var(--serif);font-size:clamp(1.6rem,6vw,2.3rem);line-height:1;color:var(--gold)}
-.stat span{display:block;font-size:.82rem;color:rgba(255,255,255,.76);margin-top:6px;line-height:1.35}
-
 /* ---------- RECONNAISSANCE (problème) ---------- */
 .recog{background:#fff}
 .recog-grid{display:grid;gap:12px}
@@ -158,25 +149,7 @@ section{padding-block:clamp(46px,9vw,88px)}
 
 /* ---------- APERÇU SÉANCE ---------- */
 .preview{background:linear-gradient(180deg,var(--sky) 0%,#fff 100%)}
-.tl{display:grid;gap:10px;margin-top:8px}
-.tl-item{display:grid;grid-template-columns:80px 1fr;gap:13px;align-items:start;padding:15px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--sh-sm)}
-.tl-time{font-size:.7rem;font-weight:800;color:#fff;background:var(--grad-blue);border-radius:9px;padding:6px 5px;text-align:center;line-height:1.25}
-.tl-item:nth-child(2) .tl-time{background:var(--grad-cta)}
-.tl-item b{display:block;font-size:.98rem;line-height:1.3;color:var(--ink)}
-.tl-item span{display:block;font-size:.87rem;color:var(--muted);line-height:1.4;margin-top:3px}
-.preview-grid{display:grid;gap:24px}
-
-/* ---------- PROFESSEURS ---------- */
-.teachers{background:#fff}
-.tgrid{display:grid;gap:14px}
-.tcard{border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;box-shadow:var(--sh-sm);display:flex;gap:14px;align-items:flex-start;background:#fff}
-.tavatar{width:62px;height:62px;flex:none;border-radius:50%;background:var(--grad-blue);display:grid;place-items:center;color:#fff;font-family:var(--serif);font-size:1.35rem;font-weight:600;overflow:hidden}
-.tavatar img{width:100%;height:100%;object-fit:cover}
-.tcard b{display:block;font-size:1rem;line-height:1.3}
-.tcard .role{display:block;font-size:.82rem;color:var(--orange);font-weight:700;margin-top:2px}
-.tcard p{font-size:.88rem;line-height:1.45;margin-top:7px}
-.tbadges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.tbadges span{font-size:.72rem;font-weight:700;padding:4px 9px;border-radius:100px;background:var(--sky);color:var(--blue-deep)}
+.preview-solo{max-width:620px;margin-inline:auto}
 
 /* ---------- TÉMOIGNAGES ---------- */
 .proof{background:linear-gradient(180deg,#fff 0%,var(--cream) 100%)}
@@ -341,7 +314,6 @@ section{padding-block:clamp(46px,9vw,88px)}
 
 /* ---------- RESPONSIVE ---------- */
 @media (min-width:600px){
-  .stats-grid{grid-template-columns:repeat(4,1fr)}
   .recog-grid{grid-template-columns:1fr 1fr}
   .vgrid{grid-template-columns:1fr 1fr}
   .qgrid{grid-template-columns:repeat(3,1fr)}
@@ -356,8 +328,6 @@ section{padding-block:clamp(46px,9vw,88px)}
   body{font-size:17.5px}
   .header .btn{display:inline-flex}
   .hero-grid{grid-template-columns:1.02fr .98fr;gap:46px}
-  .preview-grid{grid-template-columns:.95fr 1.05fr;gap:44px;align-items:center}
-  .tgrid{grid-template-columns:repeat(3,1fr)}
   .sgrid{grid-template-columns:repeat(3,1fr);gap:18px}
   .sgrid::before{content:"";position:absolute;top:40px;left:14%;right:14%;height:2px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue-deep));opacity:.26}
   .final-inner{grid-template-columns:1fr 1fr;gap:44px}
@@ -400,18 +370,6 @@ section{padding-block:clamp(46px,9vw,88px)}
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <!-- data-placeholder="stat" : remplacer par votre note et votre volume réels -->
-      <div class="rating rv">
-        <span class="stars" aria-hidden="true">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg>
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg>
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg>
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg>
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg>
-        </span>
-        <span data-placeholder="stat">4,9/5 &nbsp;<em>· 127 familles en Europe</em></span>
-      </div>
-
       <h1 class="rv" data-d="1">Votre enfant apprend le Coran <span class="grad-text">en français</span>, avec un professeur rien que pour lui.</h1>
 
       <p class="lead rv" data-d="2">
@@ -474,19 +432,7 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 2. BANDEAU CHIFFRES ══════════
-     Objectif : spécificité + autorité en un coup d'œil, juste après le hero.
-     data-placeholder="stat" — remplacer par vos chiffres réels. -->
-<section class="stats" style="padding-block:clamp(26px,5vw,38px)">
-  <div class="wrap stats-grid" data-placeholder="stat">
-    <div class="stat rv"><b>127</b><span>familles accompagnées</span></div>
-    <div class="stat rv" data-d="1"><b>4,9/5</b><span>note moyenne des parents</span></div>
-    <div class="stat rv" data-d="2"><b>9</b><span>professeurs diplômés</span></div>
-    <div class="stat rv" data-d="3"><b>92 %</b><span>continuent après l'essai</span></div>
-  </div>
-</section>
-
-<!-- ══════════ 3. RECONNAISSANCE ══════════
+<!-- ══════════ 2. RECONNAISSANCE ══════════
      Objectif : auto-identification en 10 secondes, sans paragraphe.
      4 phrases courtes = le parent coche mentalement et se sent compris. -->
 <section class="recog">
@@ -522,17 +468,17 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 4. APERÇU DU PRODUIT ══════════
-     Objectif : lever l'inconnu. Le parent voit exactement ce qu'il achète,
-     minute par minute. Réduit la charge cognitive et l'anxiété. -->
+<!-- ══════════ 3. APERÇU DU PRODUIT ══════════
+     Objectif : lever l'inconnu. Le parent voit le produit avant qu'on lui
+     demande ses coordonnées. Réduit la charge cognitive et l'anxiété. -->
 <section class="preview" id="seance">
   <div class="wrap">
     <div class="sec-head measure center rv">
       <span class="eyebrow">Dans la séance</span>
-      <h2>Voilà exactement ce qui se passe pendant 45 minutes.</h2>
+      <h2>Voyez à quoi ressemble une vraie séance.</h2>
     </div>
 
-    <div class="preview-grid">
+    <div class="preview-solo">
       <div class="rv">
         <!-- data-placeholder="video" : idéalement une capture d'écran réelle de séance -->
         <button class="vid" data-video="seance" data-placeholder="video" style="aspect-ratio:4/3" aria-label="Voir un extrait de séance">
@@ -550,59 +496,11 @@ section{padding-block:clamp(46px,9vw,88px)}
           <span class="vplayer" data-player><span><b>Emplacement vidéo</b><span>Capture d'écran ou extrait d'une vraie séance.</span></span></span>
         </button>
       </div>
-
-      <div class="tl">
-        <div class="tl-item rv"><span class="tl-time">0–5 min</span><span><b>On se retrouve</b><span>« Comment s'est passée ta semaine ? » — on crée le lien avant d'apprendre.</span></span></div>
-        <div class="tl-item rv" data-d="1"><span class="tl-time">5–20 min</span><span><b>L'histoire du jour</b><span>Yusuf, Nuh, les gens de la caverne — racontés en français, avec des images.</span></span></div>
-        <div class="tl-item rv" data-d="2"><span class="tl-time">20–38 min</span><span><b>Lecture à voix haute</b><span>Lettres, sons, sourate en cours. On répète, on félicite. Aucune note.</span></span></div>
-        <div class="tl-item rv" data-d="3"><span class="tl-time">38–45 min</span><span><b>Un défi pour la semaine</b><span>Court et réalisable. L'enfant repart fier de lui — c'est ce qui le fait revenir.</span></span></div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ 5. LES PROFESSEURS ══════════
-     Objectif : répondre à LA question n°1 d'un parent —
-     « qui va se retrouver seul devant un écran avec mon enfant ? »
-     Autorité + visages = confiance. data-placeholder="teacher" -->
-<section class="teachers">
-  <div class="wrap">
-    <div class="sec-head measure center rv">
-      <span class="eyebrow">Qui enseigne</span>
-      <h2>Vous savez exactement qui sera devant votre enfant.</h2>
-      <p class="lead">Chaque professeur est sélectionné sur sa pédagogie autant que sur son niveau. Vous le rencontrez dès la séance gratuite.</p>
-    </div>
-
-    <div class="tgrid" data-placeholder="teacher">
-      <div class="tcard rv">
-        <div class="tavatar">AM</div>
-        <div>
-          <b>Amira M.</b><span class="role">Professeure · 8 ans d'expérience</span>
-          <p>Spécialisée dans les 5–9 ans. Enseigne par le jeu et les histoires illustrées.</p>
-          <div class="tbadges"><span>Français courant</span><span>5–9 ans</span></div>
-        </div>
-      </div>
-      <div class="tcard rv" data-d="1">
-        <div class="tavatar">YB</div>
-        <div>
-          <b>Youssef B.</b><span class="role">Professeur · Diplômé en sciences islamiques</span>
-          <p>Accompagne les enfants qui commencent la lecture et la mémorisation.</p>
-          <div class="tbadges"><span>Tajwid</span><span>8–13 ans</span></div>
-        </div>
-      </div>
-      <div class="tcard rv" data-d="2">
-        <div class="tavatar">SH</div>
-        <div>
-          <b>Sarra H.</b><span class="role">Professeure · Ancienne institutrice</span>
-          <p>Habituée aux enfants nés en Europe qui n'ont jamais entendu d'arabe à la maison.</p>
-          <div class="tbadges"><span>Grands débutants</span><span>Ados</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ 6. PREUVE SOCIALE ══════════
+<!-- ══════════ 4. PREUVE SOCIALE ══════════
      Objectif : preuve par les pairs, format scannable.
      2 vidéos + 3 citations courtes = redondance de preuve. -->
 <section class="proof" id="avis">
@@ -666,7 +564,7 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 7. COMMENT ÇA MARCHE ══════════
+<!-- ══════════ 5. COMMENT ÇA MARCHE ══════════
      Objectif : rendre le prochain pas évident et petit. -->
 <section class="steps">
   <div class="wrap">
@@ -698,7 +596,7 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 8. OFFRE + GARANTIE + CONTRASTE ══════════
+<!-- ══════════ 6. OFFRE + GARANTIE + CONTRASTE ══════════
      Objectif : afficher le prix (un prix caché fait fuir les leads qualifiés
      et fait perdre du temps sur les non-qualifiés) et neutraliser le risque.
      data-placeholder="price" -->
@@ -753,7 +651,7 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 9. FAQ ══════════
+<!-- ══════════ 7. FAQ ══════════
      Objectif : absorber les objections restantes juste avant le formulaire. -->
 <section class="faq" id="faq">
   <div class="wrap">
@@ -798,7 +696,7 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 10. CTA FINAL + FORMULAIRE INLINE ══════════
+<!-- ══════════ 8. CTA FINAL + FORMULAIRE INLINE ══════════
      Le formulaire est visible directement (pas seulement en modale) :
      un clic de moins entre l'intention et le lead. -->
 <section class="final" id="reserver">
