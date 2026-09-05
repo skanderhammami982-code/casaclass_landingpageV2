@@ -28,6 +28,35 @@ de la publicité mensongère.
 | `WHATSAPP_NUMBER` | Numéro WhatsApp au format international (3 occurrences de `21600000000`) |
 | `sendLead()` | Webhook CRM / Make / Zapier, et décommenter l'appel `fbq` du pixel Meta |
 
+## Bilingue français / arabe
+
+La page bascule entre les deux langues sans rechargement, via le sélecteur
+`FR / العربية` de l'en-tête. Le passage en arabe met la page en `dir="rtl"`,
+`lang="ar"`, et charge les polices arabes (Tajawal + Amiri) — elles ne sont
+téléchargées qu'au premier passage en arabe, la version française ne les paie pas.
+
+**Le français est le contenu par défaut du HTML.** Si le script ne s'exécute pas,
+la page reste entièrement lisible en français. L'arabe vit uniquement dans l'objet
+`AR` du script : c'est le seul endroit à modifier pour retoucher la traduction.
+
+Le balisage porte quatre types de marqueurs :
+
+| Attribut | Effet |
+|---|---|
+| `data-i18n="clé"` | remplace le contenu HTML de l'élément |
+| `data-i18n-txt="clé"` | remplace le texte en laissant l'icône SVG en place |
+| `data-i18n-ph="clé"` | remplace le `placeholder` d'un champ |
+| `data-i18n-aria="clé"` | remplace l'`aria-label` |
+
+Langue au chargement : le paramètre `?lang=ar` dans l'URL est prioritaire — utile
+pour router une campagne arabophone directement vers la version arabe — sinon le
+dernier choix du visiteur, mémorisé en `localStorage`. La langue active est
+transmise dans le lead (`langue`) et un évènement `Lang_Switch` est envoyé à chaque
+bascule.
+
+Traduction en arabe standard moderne. Pour passer au dialecte tunisien, il suffit
+de réécrire les valeurs de l'objet `AR`, sans toucher au balisage.
+
 ## Vidéos
 
 La vidéo du hero est en place : `assets/extrait-seance.mp4` (720×1280, 38 s, 4,4 Mo).

@@ -300,6 +300,35 @@ section{padding-block:clamp(46px,9vw,88px)}
 .vplayer b{display:block;font-size:.95rem}
 .vplayer span{display:block;font-size:.82rem;color:rgba(255,255,255,.65);margin-top:6px;line-height:1.4}
 
+/* ---------- SÉLECTEUR DE LANGUE ---------- */
+.head-right{display:flex;align-items:center;gap:12px}
+.langsw{display:flex;align-items:center;gap:2px;padding:3px;border-radius:100px;background:var(--sky);border:1px solid var(--line)}
+.lang-btn{min-height:40px;padding:5px 13px;border-radius:100px;font-size:.8rem;font-weight:800;color:var(--muted);white-space:nowrap;transition:background .18s ease,color .18s ease}
+.lang-btn:hover{color:var(--blue-deep)}
+.lang-btn.is-on{background:#fff;color:var(--blue-deep);box-shadow:var(--sh-sm)}
+.lang-btn[lang="ar"]{font-size:.86rem;font-family:'Tajawal',var(--sans)}
+
+/* ---------- VERSION ARABE (RTL) ----------
+   Les polices arabes ne sont chargées qu'au premier passage en arabe :
+   la version française ne paie rien pour elles. */
+html[dir="rtl"]{
+  --sans:'Tajawal','Plus Jakarta Sans',-apple-system,'Segoe UI',sans-serif;
+  --serif:'Amiri','Fraunces',Georgia,serif;
+}
+/* L'arabe est cursif : tout interlettrage casse la liaison des glyphes. */
+html[dir="rtl"] *{letter-spacing:normal}
+html[dir="rtl"] body{line-height:1.85}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3{line-height:1.45;letter-spacing:normal}
+html[dir="rtl"] .eyebrow,html[dir="rtl"] .prog-txt,html[dir="rtl"] .vid-chip,html[dir="rtl"] .cmark{text-transform:none}
+/* Positions physiques à inverser */
+html[dir="rtl"] .vid-chip{left:auto;right:14px}
+html[dir="rtl"] .modal-x{right:auto;left:12px}
+html[dir="rtl"] .faq-a-in{padding-right:2px;padding-left:40px}
+/* Les flèches doivent pointer dans le sens de lecture */
+html[dir="rtl"] .btn-arrow svg,html[dir="rtl"] .back svg{transform:scaleX(-1)}
+/* Un numéro de téléphone se lit toujours de gauche à droite */
+html[dir="rtl"] input[type="tel"]{direction:ltr}
+
 /* ---------- ANIMATIONS ---------- */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.3,1)}
 .rv.in{opacity:1;transform:none}
@@ -349,7 +378,13 @@ section{padding-block:clamp(46px,9vw,88px)}
 <header class="header" id="header">
   <div class="wrap header-inner">
     <a href="#top" class="brand"><svg class="brand-mark" aria-hidden="true"><use href="#logoC"/></svg><span class="brand-name">Casa<em>Class</em></span></a>
-    <button class="btn btn-primary" data-cta="header">Séance gratuite</button>
+    <div class="head-right">
+      <div class="langsw" role="group" aria-label="Langue / اللغة">
+        <button type="button" class="lang-btn is-on" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" class="lang-btn" data-lang="ar" lang="ar" aria-pressed="false">العربية</button>
+      </div>
+      <button class="btn btn-primary" data-cta="header" data-i18n="cta.short">Séance gratuite</button>
+    </div>
   </div>
 </header>
 
@@ -362,21 +397,20 @@ section{padding-block:clamp(46px,9vw,88px)}
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <h1 class="rv" data-d="1">Votre enfant apprend le Coran <span class="grad-text">en français</span>, avec un professeur rien que pour lui.</h1>
+      <h1 class="rv" data-d="1" data-i18n="hero.h1">Votre enfant apprend le Coran <span class="grad-text">en français</span>, avec un professeur rien que pour lui.</h1>
 
-      <p class="lead rv" data-d="2">
-        45 min en visio, pour les 5–15 ans nés en Europe.
+      <p class="lead rv" data-d="2" data-i18n="hero.lead">$145 min en visio, pour les 5–15 ans nés en Europe.
         <b>La première séance est offerte.</b>
       </p>
 
-      <button class="btn btn-primary btn-block btn-arrow rv" data-d="2" data-cta="hero" style="max-width:400px">
+      <button class="btn btn-primary btn-block btn-arrow rv" data-d="2" data-cta="hero" style="max-width:400px" data-i18n-txt="cta.book">
         Réserver la séance gratuite
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
       </button>
       <div class="reassure start rv" data-d="3">
-        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> Sans carte bancaire</span>
-        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> Sans engagement</span>
-        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> 40 secondes</span>
+        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="r.nocard">Sans carte bancaire</i></span>
+        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="r.nocommit">Sans engagement</i></span>
+        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="r.40s">40 secondes</i></span>
       </div>
 
     </div>
@@ -391,22 +425,22 @@ section{padding-block:clamp(46px,9vw,88px)}
         <video class="vid-bg" preload="metadata" playsinline
                src="assets/extrait-seance.mp4#t=0.5"
                aria-label="Extrait d'une séance CasaClass, 38 secondes"></video>
-        <span class="vid-chip">Extrait de séance</span>
+        <span class="vid-chip" data-i18n="vid.chip">Extrait de séance</span>
         <button class="vid-play" type="button" aria-label="Lire l'extrait de séance">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>
         </button>
-        <span class="vid-label"><b>Voir à quoi ressemble une séance</b><span>38 secondes</span></span>
+        <span class="vid-label"><b data-i18n="vid.title">Voir à quoi ressemble une séance</b><span data-i18n="vid.sub">38 secondes</span></span>
         <span class="vplayer" data-player>
-          <span><b>Vidéo indisponible</b><span>Le fichier <code>assets/extrait-seance.mp4</code> n'a pas pu être chargé depuis cette page.</span></span>
+          <span><b data-i18n="vid.errT">Vidéo indisponible</b><span>Le fichier <code>assets/extrait-seance.mp4</code> n'a pas pu être chargé depuis cette page.</span></span>
         </span>
       </div>
 
       <!-- Qualification : place le bon parent dans le bon état d'esprit,
            et écarte les clics hors cible (leads non qualifiés). -->
       <div class="qualif rv" data-d="2">
-        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="10" cy="10" r="8"/></svg> 5 à 15 ans</span>
-        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="10" cy="10" r="8"/></svg> Débutant accepté</span>
-        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="10" cy="10" r="8"/></svg> Soirs &amp; week-ends</span>
+        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="10" cy="10" r="8"/></svg> <i data-i18n="q.age">5 à 15 ans</i></span>
+        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="10" cy="10" r="8"/></svg> <i data-i18n="q.beg">Débutant accepté</i></span>
+        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="10" cy="10" r="8"/></svg> <i data-i18n="q.when">Soirs &amp; week-ends</i></span>
       </div>
     </div>
   </div>
@@ -418,32 +452,32 @@ section{padding-block:clamp(46px,9vw,88px)}
 <section class="recog">
   <div class="wrap">
     <div class="sec-head measure center rv">
-      <span class="eyebrow">Est-ce pour vous ?</span>
-      <h2>Si vous vous reconnaissez ici, vous êtes au bon endroit.</h2>
+      <span class="eyebrow" data-i18n="recog.eye">Est-ce pour vous ?</span>
+      <h2 data-i18n="recog.h2">Si vous vous reconnaissez ici, vous êtes au bon endroit.</h2>
     </div>
 
     <div class="recog-grid">
       <div class="rcard rv">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 4 3 5 3 8h8c0-3 3-4 3-8a7 7 0 0 0-7-7Z"/></svg>
-        <b>Votre enfant parle français, mais pas l'arabe.</b>
+        <b data-i18n="recog.c1">Votre enfant parle français, mais pas l'arabe.</b>
       </div>
       <div class="rcard rv" data-d="1">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <b>Aucun cours près de chez vous, ou des horaires impossibles.</b>
+        <b data-i18n="recog.c2">Aucun cours près de chez vous, ou des horaires impossibles.</b>
       </div>
       <div class="rcard rv" data-d="2">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5h16v12H4z"/><path d="M9 21h6M12 17v4"/></svg>
-        <b>Vous avez essayé des vidéos : il décroche au bout de 5 minutes.</b>
+        <b data-i18n="recog.c3">Vous avez essayé des vidéos : il décroche au bout de 5 minutes.</b>
       </div>
       <div class="rcard rv" data-d="3">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.5A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.5C19 15.6 12 20 12 20Z"/></svg>
-        <b>Vous voulez qu'il aime ça — pas qu'il le subisse.</b>
+        <b data-i18n="recog.c4">Vous voulez qu'il aime ça — pas qu'il le subisse.</b>
       </div>
     </div>
 
     <div class="recog-out rv" data-d="2">
-      <b>CasaClass a été construit exactement pour ces enfants-là.</b>
-      <span>Des professeurs tunisiens francophones, formés à enseigner à des enfants qui grandissent en Europe.</span>
+      <b data-i18n="recog.outT">CasaClass a été construit exactement pour ces enfants-là.</b>
+      <span data-i18n="recog.outS">Des professeurs tunisiens francophones, formés à enseigner à des enfants qui grandissent en Europe.</span>
     </div>
   </div>
 </section>
@@ -462,8 +496,8 @@ section{padding-block:clamp(46px,9vw,88px)}
 <section class="proof" id="avis">
   <div class="wrap">
     <div class="sec-head measure center rv">
-      <span class="eyebrow">Témoignage</span>
-      <h2>Elle avait les mêmes doutes que vous.</h2>
+      <span class="eyebrow" data-i18n="proof.eye">Témoignage</span>
+      <h2 data-i18n="proof.h2">Elle avait les mêmes doutes que vous.</h2>
     </div>
 
     <div class="proof-solo rv">
@@ -475,7 +509,7 @@ section{padding-block:clamp(46px,9vw,88px)}
           <circle cx="50" cy="560" r="140" fill="#F5A623" opacity=".22"/>
         </svg>
         <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg></span>
-        <span class="vplayer" data-player><span><b>Emplacement vidéo</b><span>Témoignage d'une cliente, à venir.</span></span></span>
+        <span class="vplayer" data-player><span><b data-i18n="proof.phT">Emplacement vidéo</b><span data-i18n="proof.phS">Témoignage d'une cliente, à venir.</span></span></span>
       </button>
 
       <!-- À décommenter et renseigner une fois la vidéo en ligne :
@@ -490,28 +524,28 @@ section{padding-block:clamp(46px,9vw,88px)}
 <section class="steps">
   <div class="wrap">
     <div class="sec-head measure center rv">
-      <span class="eyebrow">3 étapes</span>
-      <h2>De ce bouton à la première séance : 48 heures.</h2>
+      <span class="eyebrow" data-i18n="steps.eye">3 étapes</span>
+      <h2 data-i18n="steps.h2">De ce bouton à la première séance : 48 heures.</h2>
     </div>
 
     <div class="sgrid">
       <article class="scard rv">
         <div class="snum">1</div>
-        <h3>Vous répondez à 4 questions</h3>
-        <p>L'âge de votre enfant, son prénom, le vôtre, votre WhatsApp. 40 secondes.</p>
-        <span class="smeta">Aucune carte bancaire</span>
+        <h3 data-i18n="steps.h1">Vous répondez à 4 questions</h3>
+        <p data-i18n="steps.p1">L'âge de votre enfant, son prénom, le vôtre, votre WhatsApp. 40 secondes.</p>
+        <span class="smeta" data-i18n="steps.m1">Aucune carte bancaire</span>
       </article>
       <article class="scard rv" data-d="1">
         <div class="snum">2</div>
-        <h3>On vous écrit sur WhatsApp</h3>
-        <p>En moins de 5 minutes en journée. On choisit ensemble le créneau qui vous arrange.</p>
-        <span class="smeta">Vous gardez la main</span>
+        <h3 data-i18n="steps.h2b">On vous écrit sur WhatsApp</h3>
+        <p data-i18n="steps.p2">En moins de 5 minutes en journée. On choisit ensemble le créneau qui vous arrange.</p>
+        <span class="smeta" data-i18n="steps.m2">Vous gardez la main</span>
       </article>
       <article class="scard rv" data-d="2">
         <div class="snum">3</div>
-        <h3>Séance gratuite de 45 min</h3>
-        <p>Votre enfant rencontre son professeur. Vous décidez après — ou vous ne décidez pas.</p>
-        <span class="smeta">Zéro engagement</span>
+        <h3 data-i18n="steps.h3">Séance gratuite de 45 min</h3>
+        <p data-i18n="steps.p3">Votre enfant rencontre son professeur. Vous décidez après — ou vous ne décidez pas.</p>
+        <span class="smeta" data-i18n="steps.m3">Zéro engagement</span>
       </article>
     </div>
   </div>
@@ -524,49 +558,49 @@ section{padding-block:clamp(46px,9vw,88px)}
 <section class="offer" id="offre">
   <div class="wrap">
     <div class="sec-head measure center rv">
-      <span class="eyebrow">L'offre</span>
-      <h2>Ce que vous obtenez, et ce que ça coûte.</h2>
+      <span class="eyebrow" data-i18n="offer.eye">L'offre</span>
+      <h2 data-i18n="offer.h2">Ce que vous obtenez, et ce que ça coûte.</h2>
     </div>
 
     <div class="ocard rv" style="max-width:560px;margin-inline:auto" data-placeholder="price">
       <div class="otop">
-        <span style="font-size:.85rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)">Abonnement mensuel</span>
-        <span class="price">à partir de 49 €<small> / mois</small></span>
-        <p class="strike">Soit environ 12 € la séance · sans frais d'inscription</p>
+        <span style="font-size:.85rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)" data-i18n="offer.label">Abonnement mensuel</span>
+        <span class="price" data-i18n="offer.price">à partir de 49 €<small> / mois</small></span>
+        <p class="strike" data-i18n="offer.strike">Soit environ 12 € la séance · sans frais d'inscription</p>
       </div>
 
       <ul class="olist">
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span><b>1 séance de 45 min par semaine</b> avec le même professeur</span></li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span>Un <b>créneau fixe</b> choisi par vous, soir ou week-end</span></li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span><b>Un point de progression</b> envoyé chaque mois</span></li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span>Séance <b>reportée, jamais perdue</b>, si la semaine ne va pas</span></li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span>Le professeur <b>joignable sur WhatsApp</b></span></li>
+        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li1"><b>1 séance de 45 min par semaine</b> avec le même professeur</span></li>
+        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li2">Un <b>créneau fixe</b> choisi par vous, soir ou week-end</span></li>
+        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li3"><b>Un point de progression</b> envoyé chaque mois</span></li>
+        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li4">Séance <b>reportée, jamais perdue</b>, si la semaine ne va pas</span></li>
+        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li5">Le professeur <b>joignable sur WhatsApp</b></span></li>
       </ul>
 
       <div class="guarantee">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 4 6v6c0 4.6 3.4 8.8 8 9.9 4.6-1.1 8-5.3 8-9.9V6l-8-3Z"/><path d="M9 12l2 2 4-4"/></svg>
         <div>
-          <b>Rien ne vous engage.</b>
-          <span>La séance découverte est gratuite. L'abonnement s'arrête quand vous le demandez, sans justification et sans préavis.</span>
+          <b data-i18n="offer.gT">Rien ne vous engage.</b>
+          <span data-i18n="offer.gS">La séance découverte est gratuite. L'abonnement s'arrête quand vous le demandez, sans justification et sans préavis.</span>
         </div>
       </div>
 
-      <button class="btn btn-primary btn-block rv" data-cta="offre" style="margin-top:20px">Commencer par la séance gratuite</button>
+      <button class="btn btn-primary btn-block rv" data-cta="offre" style="margin-top:20px" data-i18n="offer.cta">Commencer par la séance gratuite</button>
     </div>
 
     <!-- Effet de contraste : positionne l'offre face aux alternatives réelles du parent -->
     <div class="compare">
       <div class="crow rv">
-        <div><b>L'école du samedi</b><span>Trajet, groupe de 20, horaire imposé</span></div>
-        <span class="cmark no">Peu adapté</span>
+        <div><b data-i18n="cmp.1t">L'école du samedi</b><span data-i18n="cmp.1s">Trajet, groupe de 20, horaire imposé</span></div>
+        <span class="cmark no" data-i18n="cmp.1m">Peu adapté</span>
       </div>
       <div class="crow rv" data-d="1">
-        <div><b>Les vidéos en ligne</b><span>Gratuit, mais personne ne corrige, personne ne suit</span></div>
-        <span class="cmark no">Abandon rapide</span>
+        <div><b data-i18n="cmp.2t">Les vidéos en ligne</b><span data-i18n="cmp.2s">Gratuit, mais personne ne corrige, personne ne suit</span></div>
+        <span class="cmark no" data-i18n="cmp.2m">Abandon rapide</span>
       </div>
       <div class="crow win rv" data-d="2">
-        <div><b>CasaClass</b><span>Un professeur, un créneau, en français, à la maison</span></div>
-        <span class="cmark yes">Adapté</span>
+        <div><b>CasaClass</b><span data-i18n="cmp.3s">Un professeur, un créneau, en français, à la maison</span></div>
+        <span class="cmark yes" data-i18n="cmp.3m">Adapté</span>
       </div>
     </div>
   </div>
@@ -577,41 +611,41 @@ section{padding-block:clamp(46px,9vw,88px)}
 <section class="faq" id="faq">
   <div class="wrap">
     <div class="sec-head measure center rv">
-      <span class="eyebrow">Objections</span>
-      <h2>Les questions que tous les parents nous posent.</h2>
+      <span class="eyebrow" data-i18n="faq.eye">Objections</span>
+      <h2 data-i18n="faq.h2">Les questions que tous les parents nous posent.</h2>
     </div>
 
     <div class="faq-list" id="faqList">
-      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a1" id="q1">Mon enfant ne parle pas un mot d'arabe. C'est bloquant ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
-        <div class="faq-a" id="a1" role="region" aria-labelledby="q1"><div class="faq-a-in"><p>C'est le cas de la majorité de nos élèves. Tout est expliqué en français ; l'arabe arrive lettre par lettre. Un enfant qui n'a jamais entendu d'arabe à la maison peut commencer lundi prochain.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a1" id="q1" data-i18n-txt="faq.q1">Mon enfant ne parle pas un mot d'arabe. C'est bloquant ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+        <div class="faq-a" id="a1" role="region" aria-labelledby="q1"><div class="faq-a-in" data-i18n="faq.a1"><p>C'est le cas de la majorité de nos élèves. Tout est expliqué en français ; l'arabe arrive lettre par lettre. Un enfant qui n'a jamais entendu d'arabe à la maison peut commencer lundi prochain.</p></div></div>
       </div>
 
-      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a2" id="q2">Dois-je rester à côté pendant la séance ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
-        <div class="faq-a" id="a2" role="region" aria-labelledby="q2"><div class="faq-a-in"><p>Vous faites comme vous préférez. Beaucoup de parents restent lors de la première séance puis laissent l'enfant seul. Les séances peuvent être enregistrées sur demande pour que vous les revoyiez.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a2" id="q2" data-i18n-txt="faq.q2">Dois-je rester à côté pendant la séance ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+        <div class="faq-a" id="a2" role="region" aria-labelledby="q2"><div class="faq-a-in" data-i18n="faq.a2"><p>Vous faites comme vous préférez. Beaucoup de parents restent lors de la première séance puis laissent l'enfant seul. Les séances peuvent être enregistrées sur demande pour que vous les revoyiez.</p></div></div>
       </div>
 
-      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a3" id="q3">Qui sont les professeurs, exactement ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
-        <div class="faq-a" id="a3" role="region" aria-labelledby="q3"><div class="faq-a-in"><p>Des enseignants tunisiens francophones, formés à l'enseignement du Coran aux enfants et sélectionnés autant sur leur douceur que sur leur niveau.</p><p>Vous rencontrez le vôtre dès la séance gratuite, et vous pouvez demander à en changer si le courant ne passe pas.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a3" id="q3" data-i18n-txt="faq.q3">Qui sont les professeurs, exactement ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+        <div class="faq-a" id="a3" role="region" aria-labelledby="q3"><div class="faq-a-in" data-i18n="faq.a3"><p>Des enseignants tunisiens francophones, formés à l'enseignement du Coran aux enfants et sélectionnés autant sur leur douceur que sur leur niveau.</p><p>Vous rencontrez le vôtre dès la séance gratuite, et vous pouvez demander à en changer si le courant ne passe pas.</p></div></div>
       </div>
 
-      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a4" id="q4">Combien ça coûte réellement ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
-        <div class="faq-a" id="a4" role="region" aria-labelledby="q4"><div class="faq-a-in" data-placeholder="price"><p>À partir de 49 € par mois pour une séance hebdomadaire de 45 minutes, sans frais d'inscription. Le tarif exact dépend de la formule (individuel ou petit groupe) et du nombre de séances. Il vous est annoncé avant que vous décidiez, jamais après.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a4" id="q4" data-i18n-txt="faq.q4">Combien ça coûte réellement ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+        <div class="faq-a" id="a4" role="region" aria-labelledby="q4"><div class="faq-a-in" data-placeholder="price" data-i18n="faq.a4"><p>À partir de 49 € par mois pour une séance hebdomadaire de 45 minutes, sans frais d'inscription. Le tarif exact dépend de la formule (individuel ou petit groupe) et du nombre de séances. Il vous est annoncé avant que vous décidiez, jamais après.</p></div></div>
       </div>
 
-      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a5" id="q5">Et si mon enfant n'accroche pas ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
-        <div class="faq-a" id="a5" role="region" aria-labelledby="q5"><div class="faq-a-in"><p>Vous ne devez rien et vous n'avez rien à justifier. C'est précisément à ça que sert la séance gratuite : voir sa réaction avant de décider.</p><p>Et si vous avez déjà commencé, l'abonnement s'arrête quand vous le demandez.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a5" id="q5" data-i18n-txt="faq.q5">Et si mon enfant n'accroche pas ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+        <div class="faq-a" id="a5" role="region" aria-labelledby="q5"><div class="faq-a-in" data-i18n="faq.a5"><p>Vous ne devez rien et vous n'avez rien à justifier. C'est précisément à ça que sert la séance gratuite : voir sa réaction avant de décider.</p><p>Et si vous avez déjà commencé, l'abonnement s'arrête quand vous le demandez.</p></div></div>
       </div>
 
-      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a6" id="q6">Nos horaires sont compliqués. Vous vous adaptez ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
-        <div class="faq-a" id="a6" role="region" aria-labelledby="q6"><div class="faq-a-in"><p>Les créneaux sont calés sur l'heure européenne : après l'école en semaine, ou le samedi et le dimanche. Si une semaine ne va pas, la séance est décalée plutôt que perdue.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a6" id="q6" data-i18n-txt="faq.q6">Nos horaires sont compliqués. Vous vous adaptez ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+        <div class="faq-a" id="a6" role="region" aria-labelledby="q6"><div class="faq-a-in" data-i18n="faq.a6"><p>Les créneaux sont calés sur l'heure européenne : après l'école en semaine, ou le samedi et le dimanche. Si une semaine ne va pas, la séance est décalée plutôt que perdue.</p></div></div>
       </div>
 
-      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a7" id="q7">De quoi a-t-on besoin techniquement ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
-        <div class="faq-a" id="a7" role="region" aria-labelledby="q7"><div class="faq-a-in"><p>Un téléphone, une tablette ou un ordinateur, et une connexion correcte. Vous recevez un lien à cliquer avant chaque séance : rien à installer.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a7" id="q7" data-i18n-txt="faq.q7">De quoi a-t-on besoin techniquement ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+        <div class="faq-a" id="a7" role="region" aria-labelledby="q7"><div class="faq-a-in" data-i18n="faq.a7"><p>Un téléphone, une tablette ou un ordinateur, et une connexion correcte. Vous recevez un lien à cliquer avant chaque séance : rien à installer.</p></div></div>
       </div>
 
-      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a8" id="q8">Que faites-vous de mon numéro ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
-        <div class="faq-a" id="a8" role="region" aria-labelledby="q8"><div class="faq-a-in"><p>Il sert uniquement à organiser la séance de votre enfant. Aucune revente, aucune newsletter automatique, et vous pouvez demander sa suppression à tout moment.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a8" id="q8" data-i18n-txt="faq.q8">Que faites-vous de mon numéro ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+        <div class="faq-a" id="a8" role="region" aria-labelledby="q8"><div class="faq-a-in" data-i18n="faq.a8"><p>Il sert uniquement à organiser la séance de votre enfant. Aucune revente, aucune newsletter automatique, et vous pouvez demander sa suppression à tout moment.</p></div></div>
       </div>
     </div>
   </div>
@@ -623,18 +657,18 @@ section{padding-block:clamp(46px,9vw,88px)}
 <section class="final" id="reserver">
   <div class="wrap final-inner">
     <div>
-      <span class="eyebrow light rv">Dernière étape</span>
-      <h2 class="rv" data-d="1">Réservez la séance gratuite de votre enfant.</h2>
-      <p class="lead rv" data-d="2">Vous n'avez pas besoin de parler arabe, ni d'avoir tout organisé. Juste de dire oui à 45 minutes.</p>
+      <span class="eyebrow light rv" data-i18n="final.eye">Dernière étape</span>
+      <h2 class="rv" data-d="1" data-i18n="final.h2">Réservez la séance gratuite de votre enfant.</h2>
+      <p class="lead rv" data-d="2" data-i18n="final.lead">Vous n'avez pas besoin de parler arabe, ni d'avoir tout organisé. Juste de dire oui à 45 minutes.</p>
       <ul class="fbullets rv" data-d="2">
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> 45 minutes, entièrement offertes</li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> Aucune carte bancaire demandée</li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> Réponse WhatsApp en moins de 5 minutes</li>
+        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="final.b1">45 minutes, entièrement offertes</i></li>
+        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="final.b2">Aucune carte bancaire demandée</i></li>
+        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="final.b3">Réponse WhatsApp en moins de 5 minutes</i></li>
       </ul>
       <p class="rv" data-d="3" style="margin-top:20px;font-size:.9rem;color:rgba(255,255,255,.7)">
-        Vous préférez parler d'abord ?
+        <i data-i18n="final.waQ">Vous préférez parler d'abord ?</i>
         <!-- WHATSAPP_NUMBER -->
-        <a href="https://wa.me/21600000000" target="_blank" rel="noopener" style="color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px">Écrivez-nous sur WhatsApp</a>.
+        <a href="https://wa.me/21600000000" target="_blank" rel="noopener" style="color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px" data-i18n="final.waLink">Écrivez-nous sur WhatsApp</a>.
       </p>
     </div>
 
@@ -647,70 +681,70 @@ section{padding-block:clamp(46px,9vw,88px)}
         <div id="formWrap">
           <div class="prog">
             <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
-            <span class="prog-txt" id="progTxt">ÉTAPE 1 / 2</span>
+            <span class="prog-txt" id="progTxt" data-i18n="form.step">ÉTAPE 1 / 2</span>
           </div>
 
           <!-- ÉTAPE 1 : micro-engagement, aucune donnée personnelle -->
           <div class="step-pane active" id="pane1">
-            <h3>Quel âge a votre enfant ?</h3>
-            <p class="sub">Pour l'orienter vers le bon professeur.</p>
+            <h3 data-i18n="form.s1h">Quel âge a votre enfant ?</h3>
+            <p class="sub" data-i18n="form.s1sub">Pour l'orienter vers le bon professeur.</p>
             <div class="ages" role="group" aria-label="Âge de l'enfant">
-              <button type="button" class="age" data-age="5-6 ans">5–6 ans</button>
-              <button type="button" class="age" data-age="7-8 ans">7–8 ans</button>
-              <button type="button" class="age" data-age="9-10 ans">9–10 ans</button>
-              <button type="button" class="age" data-age="11-12 ans">11–12 ans</button>
-              <button type="button" class="age" data-age="13-15 ans">13–15 ans</button>
-              <button type="button" class="age" data-age="Plusieurs enfants">Plusieurs enfants</button>
+              <button type="button" class="age" data-age="5-6 ans" data-i18n="form.a1">5–6 ans</button>
+              <button type="button" class="age" data-age="7-8 ans" data-i18n="form.a2">7–8 ans</button>
+              <button type="button" class="age" data-age="9-10 ans" data-i18n="form.a3">9–10 ans</button>
+              <button type="button" class="age" data-age="11-12 ans" data-i18n="form.a4">11–12 ans</button>
+              <button type="button" class="age" data-age="13-15 ans" data-i18n="form.a5">13–15 ans</button>
+              <button type="button" class="age" data-age="Plusieurs enfants" data-i18n="form.a6">Plusieurs enfants</button>
             </div>
-            <p class="age-note">Aucune information personnelle à cette étape.</p>
+            <p class="age-note" data-i18n="form.s1note">Aucune information personnelle à cette étape.</p>
           </div>
 
           <!-- ÉTAPE 2 : 3 champs seulement -->
           <form class="step-pane" id="pane2" novalidate>
-            <h3>Où doit-on vous écrire ?</h3>
-            <p class="sub">On vous propose 2 créneaux sur WhatsApp. Rien d'automatique.</p>
+            <h3 data-i18n="form.s2h">Où doit-on vous écrire ?</h3>
+            <p class="sub" data-i18n="form.s2sub">On vous propose 2 créneaux sur WhatsApp. Rien d'automatique.</p>
 
             <div class="row2">
               <div class="field">
-                <label for="fParent">Votre prénom</label>
-                <input type="text" id="fParent" autocomplete="given-name" placeholder="Amel" required>
-                <span class="err">Requis</span>
+                <label for="fParent" data-i18n="form.lp">Votre prénom</label>
+                <input type="text" id="fParent" autocomplete="given-name" placeholder="Amel" data-i18n-ph="form.phParent" required>
+                <span class="err" data-i18n="form.req">Requis</span>
               </div>
               <div class="field">
-                <label for="fEnfant">Prénom de l'enfant</label>
-                <input type="text" id="fEnfant" placeholder="Rayan" required>
-                <span class="err">Requis</span>
+                <label for="fEnfant" data-i18n="form.lc">Prénom de l'enfant</label>
+                <input type="text" id="fEnfant" placeholder="Rayan" data-i18n-ph="form.phChild" required>
+                <span class="err" data-i18n="form.req">Requis</span>
               </div>
             </div>
 
             <div class="field">
-              <label for="fTel">Votre numéro WhatsApp</label>
+              <label for="fTel" data-i18n="form.lt">Votre numéro WhatsApp</label>
               <input type="tel" id="fTel" inputmode="tel" autocomplete="tel" placeholder="+33 6 12 34 56 78" required>
-              <span class="err">Indiquez un numéro valide</span>
-              <span class="hint">Un message, pas d'appel surprise. Jamais de démarchage.</span>
+              <span class="err" data-i18n="form.errTel">Indiquez un numéro valide</span>
+              <span class="hint" data-i18n="form.hint">Un message, pas d'appel surprise. Jamais de démarchage.</span>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Réserver la séance gratuite</button>
+            <button type="submit" class="btn btn-primary btn-block" id="submitBtn" data-i18n="cta.book">Réserver la séance gratuite</button>
 
             <div class="reassure">
-              <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> Gratuit</span>
-              <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> Sans engagement</span>
-              <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> 20 secondes</span>
+              <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="r.free">Gratuit</i></span>
+              <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="r.nocommit">Sans engagement</i></span>
+              <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="r.20s">20 secondes</i></span>
             </div>
 
-            <button type="button" class="back" id="backBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg> Modifier l'âge</button>
-            <p class="privacy">Vos données servent uniquement à organiser la séance. Aucune revente.</p>
+            <button type="button" class="back" id="backBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg> <i data-i18n="form.back">Modifier l'âge</i></button>
+            <p class="privacy" data-i18n="form.privacy">Vos données servent uniquement à organiser la séance. Aucune revente.</p>
           </form>
         </div>
 
         <!-- Confirmation -->
         <div class="done" id="done">
           <div class="done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5.5 5.5L20 7"/></svg></div>
-          <h3>C'est enregistré, <span id="doneName">merci</span> !</h3>
-          <p>On vous écrit sur WhatsApp dans les prochaines minutes pour fixer le créneau de <span id="doneChild">votre enfant</span>.</p>
+          <h3><i data-i18n="done.h1">C'est enregistré,</i> <span id="doneName">merci</span> !</h3>
+          <p><i data-i18n="done.p1">On vous écrit sur WhatsApp dans les prochaines minutes pour fixer le créneau de</i> <span id="doneChild">votre enfant</span>.</p>
           <!-- WHATSAPP_NUMBER -->
-          <a class="btn btn-primary btn-block" href="https://wa.me/21600000000" target="_blank" rel="noopener">Ouvrir WhatsApp maintenant</a>
-          <p class="privacy" style="margin-top:12px">Vous pouvez fermer cette fenêtre.</p>
+          <a class="btn btn-primary btn-block" href="https://wa.me/21600000000" target="_blank" rel="noopener" data-i18n="done.wa">Ouvrir WhatsApp maintenant</a>
+          <p class="privacy" style="margin-top:12px" data-i18n="done.close">Vous pouvez fermer cette fenêtre.</p>
         </div>
       </div>
 
@@ -724,21 +758,21 @@ section{padding-block:clamp(46px,9vw,88px)}
   <div class="wrap footer-inner">
     <div>
       <a href="#top" class="brand"><svg class="brand-mark" aria-hidden="true"><use href="#logoC"/></svg><span class="brand-name">Casa<em>Class</em></span></a>
-      <p>École coranique en ligne pour les enfants des familles tunisiennes en France, en Belgique, en Allemagne et ailleurs en Europe.</p>
+      <p data-i18n="foot.desc">École coranique en ligne pour les enfants des familles tunisiennes en France, en Belgique, en Allemagne et ailleurs en Europe.</p>
     </div>
     <nav class="flinks">
-      <a href="#avis">Avis</a><a href="#offre">Tarif</a><a href="#faq">Questions</a>
+      <a href="#avis" data-i18n="foot.l1">Avis</a><a href="#offre" data-i18n="foot.l2">Tarif</a><a href="#faq" data-i18n="foot.l3">Questions</a>
     </nav>
   </div>
-  <div class="wrap flegal">© <span id="year">2026</span> CasaClass — Tous droits réservés · <a href="#">Mentions légales</a> · <a href="#">Confidentialité</a></div>
+  <div class="wrap flegal">© <span id="year">2026</span> CasaClass <i data-i18n="foot.rights">— Tous droits réservés</i> · <a href="#" data-i18n="foot.legal">Mentions légales</a> · <a href="#" data-i18n="foot.priv">Confidentialité</a></div>
 </footer>
 
 <div class="sticky" id="sticky">
-  <button class="btn btn-primary btn-block" data-cta="sticky">Réserver la séance gratuite</button>
-  <div class="reassure"><span>Gratuit</span><span>·</span><span>Sans engagement</span><span>·</span><span>40 secondes</span></div>
+  <button class="btn btn-primary btn-block" data-cta="sticky" data-i18n="cta.book">Réserver la séance gratuite</button>
+  <div class="reassure"><span data-i18n="r.free">Gratuit</span><span>·</span><span data-i18n="r.nocommit">Sans engagement</span><span>·</span><span data-i18n="r.40s">40 secondes</span></div>
 </div>
 
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Réserver la séance gratuite" hidden>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Réserver la séance gratuite" data-i18n-aria="cta.book" hidden>
   <div class="modal-bg" data-close></div>
   <div class="modal-panel"><div id="modalSlot"></div></div>
 </div>
@@ -766,6 +800,240 @@ section{padding-block:clamp(46px,9vw,88px)}
     // if(window.fbq) fbq('track', event, data);
     if(window.dataLayer) window.dataLayer.push(Object.assign({event:event},data||{}));
   }
+
+  /* ==========================================================
+     BILINGUE FR / AR
+     Le français est le contenu par défaut de la page : si ce
+     script ne s'exécute pas, la page reste lisible en français.
+     L'arabe vit uniquement dans l'objet AR ci-dessous — c'est
+     le seul endroit à modifier pour retoucher la traduction.
+     ========================================================== */
+  var AR={
+    'meta.title':'كازا كلاس — القرآن لأطفالكم بلغة يفهمونها',
+    'meta.desc':'حصص عبر الإنترنت من 45 دقيقة للأطفال من 5 إلى 15 سنة المولودين في أوروبا. قصص القرآن ثم القراءة. الحصة الأولى مجانية.',
+
+    'hero.h1':'طفلك يتعلّم القرآن <span class="grad-text">بلغة يفهمها</span>، مع معلّم خاصّ به وحده.',
+    'hero.lead':'خمس وأربعون دقيقة عبر الإنترنت، للأطفال من 5 إلى 15 سنة المولودين في أوروبا. <b>الحصّة الأولى مجّانية.</b>',
+    'cta.book':'احجز الحصّة المجّانية',
+    'cta.short':'حصّة مجّانية',
+    'r.nocard':'بدون بطاقة بنكية',
+    'r.nocommit':'بدون التزام',
+    'r.40s':'40 ثانية',
+    'r.free':'مجّاناً',
+    'r.20s':'20 ثانية',
+    'vid.chip':'مقتطف من حصّة',
+    'vid.title':'شاهد كيف تجري الحصّة',
+    'vid.sub':'38 ثانية',
+    'vid.errT':'الفيديو غير متاح',
+    'q.age':'من 5 إلى 15 سنة',
+    'q.beg':'المبتدئون مرحّب بهم',
+    'q.when':'مساءً وعطلة نهاية الأسبوع',
+
+    'recog.eye':'هل هذا يخصّك؟',
+    'recog.h2':'إن وجدت نفسك هنا، فأنت في المكان الصحيح.',
+    'recog.c1':'طفلك يتكلّم الفرنسية، لكنّه لا يعرف العربية.',
+    'recog.c2':'لا توجد دروس قريبة منك، أو المواعيد مستحيلة.',
+    'recog.c3':'جرّبت الفيديوهات: يفقد تركيزه بعد خمس دقائق.',
+    'recog.c4':'تريده أن يحبّ هذا التعلّم، لا أن يتحمّله.',
+    'recog.outT':'كازا كلاس أُنشئت خصّيصاً لهؤلاء الأطفال.',
+    'recog.outS':'معلّمون تونسيون يتقنون الفرنسية، مدرَّبون على تعليم أطفال يكبرون في أوروبا.',
+
+    'proof.eye':'شهادة',
+    'proof.h2':'كانت لديها نفس الشكوك التي لديك.',
+    'proof.phT':'مكان الفيديو',
+    'proof.phS':'شهادة إحدى الأمّهات، قريباً.',
+
+    'steps.eye':'ثلاث خطوات',
+    'steps.h2':'من هذا الزرّ إلى الحصّة الأولى: 48 ساعة.',
+    'steps.h1':'تجيب عن أربعة أسئلة',
+    'steps.p1':'عمر طفلك، اسمه، اسمك، ورقم واتساب. أربعون ثانية.',
+    'steps.m1':'بدون بطاقة بنكية',
+    'steps.h2b':'نراسلك على واتساب',
+    'steps.p2':'في أقلّ من خمس دقائق خلال النهار. نختار معاً الموعد الذي يناسبك.',
+    'steps.m2':'القرار بيدك',
+    'steps.h3':'حصّة مجّانية من 45 دقيقة',
+    'steps.p3':'يلتقي طفلك بمعلّمه. تقرّر بعدها — أو لا تقرّر شيئاً.',
+    'steps.m3':'بدون أيّ التزام',
+
+    'offer.eye':'العرض',
+    'offer.h2':'ما الذي تحصل عليه، وبكم.',
+    'offer.label':'اشتراك شهري',
+    'offer.price':'ابتداءً من 49 €<small> / شهرياً</small>',
+    'offer.strike':'أي نحو 12 € للحصّة · بدون رسوم تسجيل',
+    'offer.li1':'<b>حصّة واحدة من 45 دقيقة أسبوعياً</b> مع نفس المعلّم',
+    'offer.li2':'<b>موعد ثابت</b> تختاره أنت، مساءً أو في عطلة نهاية الأسبوع',
+    'offer.li3':'<b>تقرير تقدّم</b> يُرسل إليك كلّ شهر',
+    'offer.li4':'الحصّة <b>تُؤجَّل ولا تضيع</b> إن لم يناسبك الأسبوع',
+    'offer.li5':'المعلّم <b>متاح على واتساب</b>',
+    'offer.gT':'لا شيء يلزمك.',
+    'offer.gS':'الحصّة الأولى مجّانية. ويمكنك إيقاف الاشتراك متى شئت، دون تبرير ودون إشعار مسبق.',
+    'offer.cta':'ابدأ بالحصّة المجّانية',
+    'cmp.1t':'مدرسة يوم السبت',
+    'cmp.1s':'تنقّل، مجموعة من 20 طفلاً، موعد مفروض',
+    'cmp.1m':'غير مناسب',
+    'cmp.2t':'الفيديوهات على الإنترنت',
+    'cmp.2s':'مجّانية، لكن لا أحد يصحّح ولا أحد يتابع',
+    'cmp.2m':'انقطاع سريع',
+    'cmp.3s':'معلّم واحد، موعد ثابت، بلغة يفهمها، من البيت',
+    'cmp.3m':'مناسب',
+
+    'faq.eye':'أسئلتكم',
+    'faq.h2':'الأسئلة التي يطرحها علينا كلّ الأولياء.',
+    'faq.q1':'طفلي لا يعرف كلمة واحدة بالعربية. هل هذا عائق؟',
+    'faq.a1':'<p>هذه حال أغلب تلاميذنا. كلّ شيء يُشرح بلغة يفهمها الطفل، والعربية تأتي حرفاً بعد حرف. طفل لم يسمع العربية في البيت قطّ يمكنه أن يبدأ الاثنين القادم.</p>',
+    'faq.q2':'هل يجب أن أبقى بجانبه أثناء الحصّة؟',
+    'faq.a2':'<p>كما تفضّل. كثير من الأولياء يبقون في الحصّة الأولى ثمّ يتركون الطفل وحده. ويمكن تسجيل الحصص عند الطلب لتشاهدها لاحقاً.</p>',
+    'faq.q3':'من هم المعلّمون بالضبط؟',
+    'faq.a3':'<p>معلّمون تونسيون يتقنون الفرنسية، مدرَّبون على تعليم القرآن للأطفال، ومُختارون على أساس لطفهم بقدر ما هم مُختارون على أساس مستواهم.</p><p>تلتقي بمعلّم طفلك منذ الحصّة المجّانية، ويمكنك طلب تغييره إن لم يحصل الانسجام.</p>',
+    'faq.q4':'كم يكلّف هذا فعلياً؟',
+    'faq.a4':'<p>ابتداءً من 49 € شهرياً لحصّة أسبوعية من 45 دقيقة، بدون رسوم تسجيل. السعر النهائي يتوقّف على الصيغة (فردية أو مجموعة صغيرة) وعلى عدد الحصص. ويُعلَن لك قبل أن تقرّر، لا بعد ذلك.</p>',
+    'faq.q5':'وإن لم يتعلّق طفلي بالأمر؟',
+    'faq.a5':'<p>لا شيء عليك، ولا يلزمك أيّ تبرير. هذا بالضبط دور الحصّة المجّانية: أن ترى ردّ فعل طفلك قبل أن تقرّر.</p><p>وإن كنت قد بدأت فعلاً، يتوقّف الاشتراك متى طلبت ذلك.</p>',
+    'faq.q6':'مواعيدنا معقّدة. هل تتأقلمون معها؟',
+    'faq.a6':'<p>المواعيد مضبوطة على التوقيت الأوروبي: بعد المدرسة في أيام الأسبوع، أو يوم السبت والأحد. وإن لم يناسبك أسبوع ما، تُؤجَّل الحصّة بدل أن تضيع.</p>',
+    'faq.q7':'ما الذي نحتاجه من ناحية تقنية؟',
+    'faq.a7':'<p>هاتف أو لوحة أو حاسوب، واتّصال إنترنت جيّد. يصلك رابط تضغط عليه قبل كلّ حصّة: لا شيء يُثبَّت.</p>',
+    'faq.q8':'ماذا تفعلون برقم هاتفي؟',
+    'faq.a8':'<p>يُستعمل فقط لتنظيم حصّة طفلك. لا بيع للبيانات، ولا رسائل إعلانية آلية، ويمكنك طلب حذفه في أيّ وقت.</p>',
+
+    'final.eye':'الخطوة الأخيرة',
+    'final.h2':'احجز الحصّة المجّانية لطفلك.',
+    'final.lead':'لا تحتاج إلى إتقان العربية، ولا إلى ترتيب كلّ شيء. تحتاج فقط أن تقول نعم لخمس وأربعين دقيقة.',
+    'final.b1':'45 دقيقة مجّانية بالكامل',
+    'final.b2':'لا نطلب أيّ بطاقة بنكية',
+    'final.b3':'ردّ على واتساب في أقلّ من 5 دقائق',
+    'final.waQ':'تفضّل أن تتحدّث أوّلاً؟',
+    'final.waLink':'راسلنا على واتساب',
+
+    'form.stepN':'الخطوة {n} / 2',
+    'form.s1h':'كم عمر طفلك؟',
+    'form.s1sub':'لتوجيهه إلى المعلّم المناسب.',
+    'form.a1':'5–6 سنوات','form.a2':'7–8 سنوات','form.a3':'9–10 سنوات',
+    'form.a4':'11–12 سنة','form.a5':'13–15 سنة','form.a6':'أكثر من طفل',
+    'form.s1note':'لا نطلب أيّ معلومة شخصية في هذه الخطوة.',
+    'form.s2h':'أين نراسلك؟',
+    'form.s2sub':'نقترح عليك موعدين على واتساب. لا شيء آلي.',
+    'form.lp':'اسمك','form.lc':'اسم طفلك','form.lt':'رقم واتساب',
+    'form.req':'مطلوب',
+    'form.errTel':'أدخل رقماً صحيحاً',
+    'form.hint':'رسالة واحدة، لا مكالمات مفاجئة. ولا تسويق إطلاقاً.',
+    'form.back':'تغيير العمر',
+    'form.privacy':'بياناتك تُستعمل فقط لتنظيم الحصّة. لا بيع لها.',
+    'form.phParent':'آمال','form.phChild':'ريان',
+
+    'done.h1':'تمّ التسجيل،',
+    'done.p1':'نراسلك على واتساب خلال دقائق لتحديد موعد حصّة',
+    'done.wa':'افتح واتساب الآن',
+    'done.close':'يمكنك إغلاق هذه النافذة.',
+
+    'foot.desc':'مدرسة قرآنية عبر الإنترنت لأطفال العائلات التونسية في فرنسا وبلجيكا وألمانيا وبقيّة أوروبا.',
+    'foot.l1':'الشهادات','foot.l2':'السعر','foot.l3':'الأسئلة',
+    'foot.rights':'— جميع الحقوق محفوظة',
+    'foot.legal':'المعلومات القانونية','foot.priv':'الخصوصية'
+  };
+
+  var lang='fr';
+  var arFontsLoaded=false;
+
+  function loadArabicFonts(){
+    if(arFontsLoaded) return; arFontsLoaded=true;
+    var l=document.createElement('link');
+    l.rel='stylesheet';
+    l.href='https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap';
+    document.head.appendChild(l);
+  }
+
+  // Remplace le premier nœud texte en laissant les icônes en place
+  function firstText(el){
+    for(var i=0;i<el.childNodes.length;i++){
+      var n=el.childNodes[i];
+      if(n.nodeType===3 && n.textContent.trim()) return n.textContent.trim();
+    }
+    return '';
+  }
+  function setFirstText(el,v){
+    var done=false;
+    for(var i=0;i<el.childNodes.length;i++){
+      var n=el.childNodes[i];
+      if(n.nodeType===3 && n.textContent.trim()){ n.textContent=done?'':v; done=true; }
+    }
+    if(!done) el.insertBefore(document.createTextNode(v),el.firstChild);
+  }
+
+  function stepLabel(n){
+    return lang==='ar' ? AR['form.stepN'].replace('{n}',n) : 'ÉTAPE '+n+' / 2';
+  }
+
+  function markLangButtons(){
+    $$('.lang-btn').forEach(function(b){
+      var on=b.getAttribute('data-lang')===lang;
+      b.classList.toggle('is-on',on);
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+
+  function applyLang(next){
+    lang=next;
+    var ar=lang==='ar';
+    if(ar) loadArabicFonts();
+
+    document.documentElement.lang=ar?'ar':'fr';
+    document.documentElement.dir=ar?'rtl':'ltr';
+
+    $$('[data-i18n]').forEach(function(el){
+      var k=el.getAttribute('data-i18n');
+      if(el.__fr===undefined) el.__fr=el.innerHTML;
+      var v=ar?AR[k]:el.__fr;
+      if(v!==undefined) el.innerHTML=v;
+    });
+    $$('[data-i18n-txt]').forEach(function(el){
+      var k=el.getAttribute('data-i18n-txt');
+      if(el.__frt===undefined) el.__frt=firstText(el);
+      var v=ar?AR[k]:el.__frt;
+      if(v!==undefined) setFirstText(el,v);
+    });
+    $$('[data-i18n-ph]').forEach(function(el){
+      var k=el.getAttribute('data-i18n-ph');
+      if(el.__frp===undefined) el.__frp=el.placeholder;
+      var v=ar?AR[k]:el.__frp;
+      if(v!==undefined) el.placeholder=v;
+    });
+    $$('[data-i18n-aria]').forEach(function(el){
+      var k=el.getAttribute('data-i18n-aria');
+      if(el.__fra===undefined) el.__fra=el.getAttribute('aria-label');
+      var v=ar?AR[k]:el.__fra;
+      if(v) el.setAttribute('aria-label',v);
+    });
+
+    if(ar){ if(AR['meta.title']) document.title=AR['meta.title']; }
+    else if(document.__frTitle) document.title=document.__frTitle;
+
+    var pt=$('#progTxt');
+    if(pt) pt.textContent=stepLabel($('#pane2').classList.contains('active')?2:1);
+
+    markLangButtons();
+    try{ localStorage.setItem('cc_lang',lang); }catch(e){}
+
+    // la hauteur d'une réponse FAQ ouverte change avec la longueur du texte
+    var op=$('#faqList .faq-item.open');
+    if(op){ var pa=op.querySelector('.faq-a'); pa.style.height=pa.scrollHeight+'px'; }
+  }
+
+  document.__frTitle=document.title;
+  $$('.lang-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var next=b.getAttribute('data-lang');
+      if(next===lang) return;
+      applyLang(next);
+      track('Lang_Switch',{lang:next});
+    });
+  });
+
+  // Langue au chargement : ?lang=ar dans l'URL (utile pour router les
+  // campagnes arabophones), sinon le dernier choix du visiteur.
+  var wanted=params.get('lang');
+  if(wanted!=='ar' && wanted!=='fr'){ try{ wanted=localStorage.getItem('cc_lang'); }catch(e){ wanted=null; } }
+  if(wanted==='ar') applyLang('ar');
 
   /* ---------- Header + barre sticky ---------- */
   var header=$('#header'),sticky=$('#sticky'),hero=$('.hero'),modal=$('#modal');
@@ -895,7 +1163,7 @@ section{padding-block:clamp(46px,9vw,88px)}
     p1.classList.toggle('active',n===1);
     p2.classList.toggle('active',n===2);
     fill.style.width=n===1?'50%':'100%';
-    ptxt.textContent='ÉTAPE '+n+' / 2';
+    ptxt.textContent=stepLabel(n);
     if(n===2)setTimeout(function(){$('#fParent').focus({preventScroll:true})},120);
   }
 
@@ -930,6 +1198,7 @@ section{padding-block:clamp(46px,9vw,88px)}
       whatsapp:tel.value.trim(),
       age_enfant:lead.age,
       cta_source:lead.cta_source,
+      langue:lang,
       page:location.pathname
     },tracking);
 
