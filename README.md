@@ -23,8 +23,7 @@ de la publicité mensongère.
 
 | Marqueur | À remplacer par |
 |---|---|
-| `data-placeholder="video"` | 3 vidéos : aperçu de séance, 2 témoignages parents |
-| `data-placeholder="quote"` | Témoignages écrits et fiches parents |
+| `data-placeholder="video"` | Le témoignage filmé d'une cliente (section « Témoignage ») |
 | `data-placeholder="price"` | Tarif mensuel réel et contenu de l'offre |
 | `WHATSAPP_NUMBER` | Numéro WhatsApp au format international (3 occurrences de `21600000000`) |
 | `sendLead()` | Webhook CRM / Make / Zapier, et décommenter l'appel `fbq` du pixel Meta |
@@ -36,25 +35,28 @@ Elle est chargée en `preload="metadata"` — seul l'en-tête part au chargement
 page, le fichier complet ne se télécharge qu'au clic. Le fragment `#t=0.5` fait
 afficher l'image à 0,5 s en guise de vignette, sans fichier poster séparé.
 
-Pour brancher les emplacements restants, ajoutez une balise `<video>` dans le bloc
-`.vid` concerné, sur le même modèle que le hero. Le script détecte automatiquement
-la présence d'une balise `video` et bascule du message d'emplacement vers la lecture.
+La section « Témoignage » attend une seconde vidéo — le témoignage filmé d'une
+cliente. L'emplacement est volontairement vide. Pour le brancher : déposez le
+fichier dans `assets/`, remplacez le `<svg class="vid-bg">` du bloc par une balise
+`<video>` sur le même modèle que le hero, retirez `data-placeholder="video"` et
+décommentez le bloc `.vmeta` sous la vidéo pour y mettre le prénom et la ville.
+Le script détecte automatiquement la présence d'une balise `video` et bascule du
+message d'emplacement vers la lecture.
 
 ## Structure de la page
 
 1. Hero — promesse + vidéo d'une séance réelle
 2. « Est-ce pour vous ? » — 4 cartes d'auto-identification
-3. Aperçu de la séance — vidéo
-4. Preuve sociale — 2 vidéos + 3 témoignages
-5. Comment ça marche — 3 étapes
-6. Offre, garantie et comparatif
-7. FAQ — 8 objections
-8. CTA final + formulaire de capture en 2 étapes
+3. Témoignage — une vidéo cliente (emplacement vide)
+4. Comment ça marche — 3 étapes
+5. Offre, garantie et comparatif
+6. FAQ — 8 objections
+7. CTA final + formulaire de capture en 2 étapes
 
-Le bandeau de chiffres clés, la section « Les professeurs », la note en étoiles
-du hero et la timeline minute par minute ont été retirés : ils reposaient sur des
-données non encore disponibles. Ils pourront être réintroduits quand les chiffres
-réels, les photos des professeurs et le déroulé validé existeront.
+Ont été retirés faute de données réelles disponibles : le bandeau de chiffres clés,
+la section « Les professeurs », la note en étoiles du hero, la timeline minute par
+minute, la section « Aperçu de la séance » et les trois avis écrits. Ils pourront
+être réintroduits quand les éléments réels existeront.
 
 ## Conversion
 

@@ -15,14 +15,13 @@
      Tous les points ci-dessous sont des EMPLACEMENTS, pas des données réelles.
      Diffuser ces valeurs telles quelles serait de la publicité mensongère.
 
-     1. data-placeholder="video"    → les 3 emplacements vidéo restants
-                                       (aperçu de séance, 2 témoignages parents)
+     1. data-placeholder="video"    → le témoignage filmé d'une cliente,
+                                       section « Témoignage » (en attente).
                                        La vidéo du hero est en place :
                                        assets/extrait-seance.mp4
-     2. data-placeholder="quote"    → les 3 témoignages écrits et les 2 fiches parents
-     3. data-placeholder="price"    → le tarif mensuel et le contenu de l'offre
-     4. WHATSAPP_NUMBER             → remplacer 21600000000 (3 occurrences)
-     5. Le endpoint du formulaire   → voir la fonction sendLead() en bas de page
+     2. data-placeholder="price"    → le tarif mensuel et le contenu de l'offre
+     3. WHATSAPP_NUMBER             → remplacer 21600000000 (3 occurrences)
+     4. Le endpoint du formulaire   → voir la fonction sendLead() en bas de page
      ============================================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -116,8 +115,6 @@ section{padding-block:clamp(46px,9vw,88px)}
              radial-gradient(95% 75% at 2% 8%,rgba(46,127,232,.15) 0%,transparent 52%),
              linear-gradient(180deg,#fff 0%,var(--sky) 100%)}
 .hero-grid{display:grid;gap:26px;align-items:center}
-.stars{display:inline-flex;gap:1px}
-.stars svg{width:14px;height:14px;color:var(--gold)}
 .hero h1{margin-bottom:14px}
 .hero .lead{margin-bottom:22px;max-width:520px}
 .hero .lead b{color:var(--ink);font-weight:700}
@@ -155,23 +152,13 @@ section{padding-block:clamp(46px,9vw,88px)}
 .recog-out b{font-family:var(--serif);font-weight:600;font-size:clamp(1.1rem,4vw,1.4rem);line-height:1.3;display:block}
 .recog-out span{display:block;margin-top:8px;font-size:.93rem;color:rgba(255,255,255,.82)}
 
-/* ---------- APERÇU SÉANCE ---------- */
-.preview{background:linear-gradient(180deg,var(--sky) 0%,#fff 100%)}
-.preview-solo{max-width:620px;margin-inline:auto}
-
-/* ---------- TÉMOIGNAGES ---------- */
+/* ---------- TÉMOIGNAGE ---------- */
 .proof{background:linear-gradient(180deg,#fff 0%,var(--cream) 100%)}
-.vgrid{display:grid;gap:16px}
-.vcard{border-radius:var(--r-lg);overflow:hidden;background:#fff;box-shadow:var(--sh-md);border:1px solid var(--line)}
-.vcard .vid{border-radius:0;aspect-ratio:16/10;box-shadow:none}
-.vmeta{padding:15px 17px}
+.proof-solo{max-width:320px;margin-inline:auto}
+/* Légende sous la vidéo — utilisée dès que le prénom sera renseigné */
+.vmeta{padding:14px 4px 0;text-align:center}
 .vmeta b{display:block;font-size:.97rem;line-height:1.3}
 .vmeta span{display:block;font-size:.83rem;color:var(--muted);line-height:1.35;margin-top:2px}
-.qgrid{display:grid;gap:12px;margin-top:16px}
-.qcard{padding:17px;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);box-shadow:var(--sh-sm)}
-.qcard .stars{margin-bottom:9px}
-.qcard p{font-size:.93rem;line-height:1.5;color:var(--ink)}
-.qcard footer{margin-top:11px;font-size:.82rem;color:var(--muted);font-weight:600}
 
 /* ---------- ÉTAPES ---------- */
 .steps{background:#fff}
@@ -323,8 +310,6 @@ section{padding-block:clamp(46px,9vw,88px)}
 /* ---------- RESPONSIVE ---------- */
 @media (min-width:600px){
   .recog-grid{grid-template-columns:1fr 1fr}
-  .vgrid{grid-template-columns:1fr 1fr}
-  .qgrid{grid-template-columns:repeat(3,1fr)}
   .ages{grid-template-columns:repeat(3,1fr)}
   .modal{place-items:center}
   .modal-panel{border-radius:var(--r-xl);padding:8px 0}
@@ -464,103 +449,44 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 3. APERÇU DU PRODUIT ══════════
-     Objectif : lever l'inconnu. Le parent voit le produit avant qu'on lui
-     demande ses coordonnées. Réduit la charge cognitive et l'anxiété. -->
-<section class="preview" id="seance">
-  <div class="wrap">
-    <div class="sec-head measure center rv">
-      <span class="eyebrow">Dans la séance</span>
-      <h2>Voyez à quoi ressemble une vraie séance.</h2>
-    </div>
+<!-- ══════════ 3. PREUVE SOCIALE ══════════
+     Objectif : preuve par les pairs. Un seul témoignage filmé, en attente.
 
-    <div class="preview-solo">
-      <div class="rv">
-        <!-- data-placeholder="video" : idéalement une capture d'écran réelle de séance -->
-        <button class="vid" data-video="seance" data-placeholder="video" style="aspect-ratio:4/3" aria-label="Voir un extrait de séance">
-          <svg class="vid-bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <rect width="400" height="300" fill="#0F1F4A"/>
-            <rect x="24" y="24" width="352" height="252" rx="16" fill="#1B2F63"/>
-            <rect x="40" y="44" width="150" height="112" rx="10" fill="#2E7FE8" opacity=".5"/>
-            <rect x="204" y="44" width="156" height="112" rx="10" fill="#F5A623" opacity=".38"/>
-            <rect x="40" y="172" width="320" height="14" rx="7" fill="#fff" opacity=".18"/>
-            <rect x="40" y="196" width="250" height="14" rx="7" fill="#fff" opacity=".13"/>
-            <rect x="40" y="220" width="190" height="14" rx="7" fill="#fff" opacity=".1"/>
-          </svg>
-          <span class="vid-chip">Aperçu d'une séance</span>
-          <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg></span>
-          <span class="vplayer" data-player><span><b>Emplacement vidéo</b><span>Capture d'écran ou extrait d'une vraie séance.</span></span></span>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ 4. PREUVE SOCIALE ══════════
-     Objectif : preuve par les pairs, format scannable.
-     2 vidéos + 3 citations courtes = redondance de preuve. -->
+     EMPLACEMENT VIDÉO — volontairement vide jusqu'à réception du fichier.
+     Pour le brancher : deposez la video dans assets/ puis remplacez le bloc
+     <svg class="vid-bg">…</svg> par, sur le modele du hero :
+       <video class="vid-bg" preload="metadata" playsinline
+              src="assets/temoignage.mp4#t=0.5"
+              aria-label="Témoignage d'une maman"></video>
+     Puis retirez data-placeholder="video" et décommentez le bloc .vmeta
+     sous la vidéo pour y mettre le prénom et la ville de la personne. -->
 <section class="proof" id="avis">
   <div class="wrap">
     <div class="sec-head measure center rv">
-      <span class="eyebrow">Ce que disent les parents</span>
-      <h2>Ils avaient les mêmes doutes que vous.</h2>
+      <span class="eyebrow">Témoignage</span>
+      <h2>Elle avait les mêmes doutes que vous.</h2>
     </div>
 
-    <div class="vgrid">
-      <div class="vcard rv">
-        <button class="vid" data-video="t1" data-placeholder="video" aria-label="Voir le témoignage de Sonia">
-          <svg class="vid-bg" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="250" fill="#1E3A8A"/><circle cx="330" cy="40" r="70" fill="#2E7FE8" opacity=".5"/><circle cx="60" cy="220" r="80" fill="#F5A623" opacity=".28"/></svg>
-          <span class="vid-chip">1 min 12</span>
-          <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg></span>
-          <span class="vplayer" data-player><span><b>Emplacement vidéo</b><span>Témoignage filmé d'un parent.</span></span></span>
-        </button>
-        <div class="vmeta" data-placeholder="quote">
-          <b>Sonia · maman de Rayan, 9 ans</b>
-          <span>Lyon, France · abonnée depuis 7 mois</span>
-        </div>
-      </div>
+    <div class="proof-solo rv">
+      <button class="vid vid-portrait" data-video="temoignage" data-placeholder="video"
+              aria-label="Emplacement du témoignage vidéo">
+        <svg class="vid-bg" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="360" height="640" fill="#1E3A8A"/>
+          <circle cx="300" cy="110" r="120" fill="#2E7FE8" opacity=".45"/>
+          <circle cx="50" cy="560" r="140" fill="#F5A623" opacity=".22"/>
+        </svg>
+        <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg></span>
+        <span class="vplayer" data-player><span><b>Emplacement vidéo</b><span>Témoignage d'une cliente, à venir.</span></span></span>
+      </button>
 
-      <div class="vcard rv" data-d="1">
-        <button class="vid" data-video="t2" data-placeholder="video" aria-label="Voir le témoignage de Karim">
-          <svg class="vid-bg" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="250" fill="#12225C"/><circle cx="70" cy="40" r="66" fill="#2E7FE8" opacity=".45"/><circle cx="340" cy="220" r="86" fill="#E8590C" opacity=".3"/></svg>
-          <span class="vid-chip">58 s</span>
-          <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg></span>
-          <span class="vplayer" data-player><span><b>Emplacement vidéo</b><span>Témoignage filmé d'un parent.</span></span></span>
-        </button>
-        <div class="vmeta" data-placeholder="quote">
-          <b>Karim · papa de Nour, 7 ans</b>
-          <span>Bruxelles, Belgique · abonné depuis 4 mois</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="qgrid" data-placeholder="quote">
-      <div class="qcard rv">
-        <span class="stars" aria-label="5 sur 5">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg>
-        </span>
-        <p>« Il a demandé lui-même quand serait la prochaine séance. Je ne m'y attendais pas. »</p>
-        <footer>Sonia, Lyon</footer>
-      </div>
-      <div class="qcard rv" data-d="1">
-        <span class="stars" aria-label="5 sur 5">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg>
-        </span>
-        <p>« Elle raconte les histoires à sa petite sœur maintenant. C'est tout ce que je voulais. »</p>
-        <footer>Karim, Bruxelles</footer>
-      </div>
-      <div class="qcard rv" data-d="2">
-        <span class="stars" aria-label="5 sur 5">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.7 12.4 7l5.8.5-4.4 3.8 1.3 5.7L10 14l-5.1 3 1.3-5.7L1.8 7.5 7.6 7 10 1.7Z"/></svg>
-        </span>
-        <p>« J'avais peur du sérieux. Le professeur nous envoie un point tous les mois. »</p>
-        <footer>Imen, Francfort</footer>
-      </div>
+      <!-- À décommenter et renseigner une fois la vidéo en ligne :
+      <div class="vmeta"><b>Prénom · maman de …</b><span>Ville, pays</span></div>
+      -->
     </div>
   </div>
 </section>
 
-<!-- ══════════ 5. COMMENT ÇA MARCHE ══════════
+<!-- ══════════ 4. COMMENT ÇA MARCHE ══════════
      Objectif : rendre le prochain pas évident et petit. -->
 <section class="steps">
   <div class="wrap">
@@ -592,7 +518,7 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 6. OFFRE + GARANTIE + CONTRASTE ══════════
+<!-- ══════════ 5. OFFRE + GARANTIE + CONTRASTE ══════════
      Objectif : afficher le prix (un prix caché fait fuir les leads qualifiés
      et fait perdre du temps sur les non-qualifiés) et neutraliser le risque.
      data-placeholder="price" -->
@@ -647,7 +573,7 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 7. FAQ ══════════
+<!-- ══════════ 6. FAQ ══════════
      Objectif : absorber les objections restantes juste avant le formulaire. -->
 <section class="faq" id="faq">
   <div class="wrap">
@@ -692,7 +618,7 @@ section{padding-block:clamp(46px,9vw,88px)}
   </div>
 </section>
 
-<!-- ══════════ 8. CTA FINAL + FORMULAIRE INLINE ══════════
+<!-- ══════════ 7. CTA FINAL + FORMULAIRE INLINE ══════════
      Le formulaire est visible directement (pas seulement en modale) :
      un clic de moins entre l'intention et le lead. -->
 <section class="final" id="reserver">
@@ -802,7 +728,7 @@ section{padding-block:clamp(46px,9vw,88px)}
       <p>École coranique en ligne pour les enfants des familles tunisiennes en France, en Belgique, en Allemagne et ailleurs en Europe.</p>
     </div>
     <nav class="flinks">
-      <a href="#seance">La séance</a><a href="#avis">Avis</a><a href="#offre">Tarif</a><a href="#faq">Questions</a>
+      <a href="#avis">Avis</a><a href="#offre">Tarif</a><a href="#faq">Questions</a>
     </nav>
   </div>
   <div class="wrap flegal">© <span id="year">2026</span> CasaClass — Tous droits réservés · <a href="#">Mentions légales</a> · <a href="#">Confidentialité</a></div>
