@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CasaClass — Le Coran en français pour vos enfants</title>
-<meta name="description" content="Séances de 45 minutes en visio pour les enfants de 5 à 15 ans nés en Europe. Histoires du Coran et lecture, en français. Première séance offerte, sans carte bancaire.">
+<meta name="description" content="Cours d'arabe et de Coran en ligne pour les enfants de 5 à 15 ans nés en Europe. Séances d'1 heure, groupes de 3 enfants maximum. Séance d'essai offerte, sans carte bancaire.">
 <meta name="theme-color" content="#1E3A8A">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Votre enfant apprend le Coran en français, depuis la maison">
-<meta property="og:description" content="45 min en visio avec un professeur tunisien francophone. Première séance offerte.">
+<meta property="og:description" content="1 heure en visio avec un professeur tunisien francophone, en groupe de 3 enfants maximum. Séance d'essai offerte.">
 
 <!-- ============================================================================
      ⚠️  À REMPLACER AVANT DE LANCER DU TRAFIC PAYANT
@@ -19,8 +19,11 @@
                                        section « Témoignage » (en attente).
                                        La vidéo du hero est en place :
                                        assets/extrait-seance.mp4
-     2. data-placeholder="price"    → le tarif mensuel et le contenu de l'offre
-     3. WHATSAPP_NUMBER             → remplacer 21600000000 (3 occurrences)
+     2. data-placeholder="price"    → tarifs de rentree (promo) : a mettre a jour
+                                       a la fin de l'operation, et verifier que
+                                       les prix barres correspondent bien au prix
+                                       pratique avant la promo.
+     3. WHATSAPP_NUMBER             → en place : +216 28 20 83 93
      4. Le endpoint du formulaire   → voir la fonction sendLead() en bas de page
      ============================================================================ -->
 
@@ -181,6 +184,30 @@ section{padding-block:clamp(46px,9vw,88px)}
 .olist li{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;color:var(--ink-soft)}
 .olist svg{width:19px;height:19px;flex:none;color:var(--green);margin-top:1px}
 .olist b{color:var(--ink);font-weight:700}
+/* Ce qui est commun aux trois formules */
+.ocommon{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-bottom:22px}
+.ocommon span{display:inline-flex;align-items:center;gap:7px;font-size:.87rem;font-weight:700;color:var(--ink-soft)}
+.ocommon svg{width:16px;height:16px;flex:none;color:var(--green)}
+
+/* Grille tarifaire */
+.pgrid{display:grid;gap:14px}
+.pcard{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 20px;box-shadow:var(--sh-sm);text-align:center}
+.pcard.best{border-color:rgba(232,89,12,.45);box-shadow:var(--sh-md);padding-top:30px}
+.pbadge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:100px;background:var(--grad-cta);color:#fff;font-size:.72rem;font-weight:800;white-space:nowrap;box-shadow:var(--sh-cta)}
+.phead b{display:block;font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--ink)}
+.phead span{display:block;font-size:.83rem;font-weight:700;color:var(--orange);margin-top:3px}
+.pwhat{font-size:.9rem;line-height:1.45;margin-top:11px;min-height:2.6em}
+.pprice{margin-top:13px;line-height:1}
+.pprice s{font-size:.95rem;color:var(--muted);margin-inline-end:5px}
+.pprice b{font-family:var(--serif);font-size:2.1rem;font-weight:600;color:var(--ink)}
+.pprice small{font-size:.85rem;font-weight:700;color:var(--muted)}
+.plong{margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);font-size:.81rem;color:var(--muted)}
+
+/* Réduction fratrie */
+.promo{margin-top:16px;padding:14px 18px;border-radius:var(--r-md);background:var(--cream);border:1px solid #F6E7D2;text-align:center}
+.promo b{display:block;font-size:.92rem;color:var(--ink)}
+.promo span{display:block;font-size:.86rem;color:var(--orange);font-weight:700;margin-top:3px}
+
 .guarantee{display:flex;gap:12px;align-items:flex-start;margin-top:20px;padding:15px;border-radius:var(--r-md);background:#F1FAF3;border:1px solid #D6F0DD}
 .guarantee svg{width:24px;height:24px;flex:none;color:var(--green)}
 .guarantee b{display:block;font-size:.93rem;color:#14532D}
@@ -342,6 +369,7 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
 @media (min-width:600px){
   .recog-grid{grid-template-columns:1fr 1fr}
   .ages{grid-template-columns:repeat(3,1fr)}
+  .pgrid{grid-template-columns:repeat(3,1fr);gap:16px}
   .modal{place-items:center}
   .modal-panel{border-radius:var(--r-xl);padding:8px 0}
   .modal-panel .formbox{border-radius:var(--r-xl);padding:20px 24px}
@@ -400,10 +428,11 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <h1 class="rv" data-d="1" data-i18n="hero.h1">Votre enfant apprend le Coran <span class="grad-text">en français</span>, avec un professeur rien que pour lui.</h1>
+      <h1 class="rv" data-d="1" data-i18n="hero.h1">Votre enfant apprend le Coran <span class="grad-text">en français</span>, dans un groupe de 3 enfants maximum.</h1>
 
-      <p class="lead rv" data-d="2" data-i18n="hero.lead">$145 min en visio, pour les 5–15 ans nés en Europe.
-        <b>La première séance est offerte.</b>
+      <p class="lead rv" data-d="2" data-i18n="hero.lead">
+        1 heure en visio, pour les 5–15 ans nés en Europe.
+        <b>La séance d'essai est offerte.</b>
       </p>
 
       <button class="btn btn-primary btn-block btn-arrow rv" data-d="2" data-cta="hero" style="max-width:400px" data-i18n-txt="cta.book">
@@ -546,7 +575,7 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
       </article>
       <article class="scard rv" data-d="2">
         <div class="snum">3</div>
-        <h3 data-i18n="steps.h3">Séance gratuite de 45 min</h3>
+        <h3 data-i18n="steps.h3">Séance d'essai gratuite d'1 heure</h3>
         <p data-i18n="steps.p3">Votre enfant rencontre son professeur. Vous décidez après — ou vous ne décidez pas.</p>
         <span class="smeta" data-i18n="steps.m3">Zéro engagement</span>
       </article>
@@ -561,30 +590,63 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
 <section class="offer" id="offre">
   <div class="wrap">
     <div class="sec-head measure center rv">
-      <span class="eyebrow" data-i18n="offer.eye">L'offre</span>
-      <h2 data-i18n="offer.h2">Ce que vous obtenez, et ce que ça coûte.</h2>
+      <span class="eyebrow" data-i18n="offer.eye">Nos formules</span>
+      <h2 data-i18n="offer.h2">Trois formules. Une seule séance d'essai pour choisir.</h2>
     </div>
 
-    <div class="ocard rv" style="max-width:560px;margin-inline:auto" data-placeholder="price">
-      <div class="otop">
-        <span style="font-size:.85rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)" data-i18n="offer.label">Abonnement mensuel</span>
-        <span class="price" data-i18n="offer.price">à partir de 49 €<small> / mois</small></span>
-        <p class="strike" data-i18n="offer.strike">Soit environ 12 € la séance · sans frais d'inscription</p>
-      </div>
+    <!-- Ce qui est commun aux trois formules : évite de répéter 4 lignes par carte -->
+    <div class="ocommon rv">
+      <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="offer.k1">1 heure par séance</i></span>
+      <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="offer.k2">Groupe de 3 enfants maximum</i></span>
+      <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="offer.k3">Cours individuel possible</i></span>
+      <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="offer.k4">Créneau fixe, horaires Europe</i></span>
+    </div>
 
-      <ul class="olist">
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li1"><b>1 séance de 45 min par semaine</b> avec le même professeur</span></li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li2">Un <b>créneau fixe</b> choisi par vous, soir ou week-end</span></li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li3"><b>Un point de progression</b> envoyé chaque mois</span></li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li4">Séance <b>reportée, jamais perdue</b>, si la semaine ne va pas</span></li>
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg><span data-i18n="offer.li5">Le professeur <b>joignable sur WhatsApp</b></span></li>
-      </ul>
+    <!-- TARIFS — data-placeholder="price" : mettre à jour à la fin de l'offre de rentrée -->
+    <div class="pgrid" data-placeholder="price">
+      <article class="pcard rv">
+        <div class="phead">
+          <b data-i18n="p1.name">Découverte</b>
+          <span data-i18n="p1.freq">1 séance par semaine</span>
+        </div>
+        <p class="pwhat" data-i18n="p1.what">Arabe <b>ou</b> Coran, au choix selon les besoins</p>
+        <p class="pprice"><s data-i18n="p1.old">45 €</s> <b data-i18n="p1.new">39 €</b><small data-i18n="perMonth"> / mois</small></p>
+        <p class="plong" data-i18n="p1.long">3 mois : 97,50 € · 1 an : 351 €</p>
+      </article>
 
-      <div class="guarantee">
+      <article class="pcard best rv" data-d="1">
+        <span class="pbadge" data-i18n="p2.badge">Le plus choisi</span>
+        <div class="phead">
+          <b data-i18n="p2.name">Semi-intensif</b>
+          <span data-i18n="p2.freq">2 séances par semaine</span>
+        </div>
+        <p class="pwhat" data-i18n="p2.what">Pack combiné : <b>1 arabe + 1 Coran</b></p>
+        <p class="pprice"><s data-i18n="p2.old">79 €</s> <b data-i18n="p2.new">69 €</b><small data-i18n="perMonth"> / mois</small></p>
+        <p class="plong" data-i18n="p2.long">3 mois : 172,50 € · 1 an : 621 €</p>
+      </article>
+
+      <article class="pcard rv" data-d="2">
+        <div class="phead">
+          <b data-i18n="p3.name">Intensif</b>
+          <span data-i18n="p3.freq">3 séances par semaine</span>
+        </div>
+        <p class="pwhat" data-i18n="p3.what">Arabe <b>et</b> Coran en immersion</p>
+        <p class="pprice"><s data-i18n="p3.old">99 €</s> <b data-i18n="p3.new">89 €</b><small data-i18n="perMonth"> / mois</small></p>
+        <p class="plong" data-i18n="p3.long">3 mois : 222,50 € · 1 an : 801 €</p>
+      </article>
+    </div>
+
+    <div class="promo rv" data-placeholder="price">
+      <b data-i18n="promo.t">Tarifs de rentrée, cumulables avec la réduction fratrie</b>
+      <span data-i18n="promo.s">2ᵉ enfant −15 % · 3ᵉ enfant −20 %</span>
+    </div>
+
+    <div class="ocard rv" style="max-width:560px;margin-inline:auto;margin-top:22px">
+      <div class="guarantee" style="margin-top:0">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3 4 6v6c0 4.6 3.4 8.8 8 9.9 4.6-1.1 8-5.3 8-9.9V6l-8-3Z"/><path d="M9 12l2 2 4-4"/></svg>
         <div>
-          <b data-i18n="offer.gT">Rien ne vous engage.</b>
-          <span data-i18n="offer.gS">La séance découverte est gratuite. L'abonnement s'arrête quand vous le demandez, sans justification et sans préavis.</span>
+          <b data-i18n="offer.gT">Vous essayez avant de payer.</b>
+          <span data-i18n="offer.gS">La séance d'essai est gratuite et sans carte bancaire. Ensuite, la formule mensuelle s'arrête quand vous le demandez, sans justification et sans préavis.</span>
         </div>
       </div>
 
@@ -602,7 +664,7 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
         <span class="cmark no" data-i18n="cmp.2m">Abandon rapide</span>
       </div>
       <div class="crow win rv" data-d="2">
-        <div><b>CasaClass</b><span data-i18n="cmp.3s">Un professeur, un créneau, en français, à la maison</span></div>
+        <div><b>CasaClass</b><span data-i18n="cmp.3s">3 enfants maximum, par âge et niveau, à la maison</span></div>
         <span class="cmark yes" data-i18n="cmp.3m">Adapté</span>
       </div>
     </div>
@@ -623,6 +685,10 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
         <div class="faq-a" id="a1" role="region" aria-labelledby="q1"><div class="faq-a-in" data-i18n="faq.a1"><p>C'est le cas de la majorité de nos élèves. Tout est expliqué en français ; l'arabe arrive lettre par lettre. Un enfant qui n'a jamais entendu d'arabe à la maison peut commencer lundi prochain.</p></div></div>
       </div>
 
+      <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a9" id="q9" data-i18n-txt="faq.q9">Les séances sont-elles individuelles ou en groupe ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+        <div class="faq-a" id="a9" role="region" aria-labelledby="q9"><div class="faq-a-in" data-i18n="faq.a9"><p>En groupe de 3 enfants maximum, réunis par âge et par niveau. C'est notre formule courante, et c'est aussi celle de la séance d'essai gratuite. À trois, chaque enfant lit à voix haute plusieurs fois par séance et le professeur corrige chacun.</p><p>Le cours individuel existe aussi si vous le préférez : dites-le nous sur WhatsApp et nous vous indiquons le tarif.</p></div></div>
+      </div>
+
       <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a2" id="q2" data-i18n-txt="faq.q2">Dois-je rester à côté pendant la séance ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
         <div class="faq-a" id="a2" role="region" aria-labelledby="q2"><div class="faq-a-in" data-i18n="faq.a2"><p>Vous faites comme vous préférez. Beaucoup de parents restent lors de la première séance puis laissent l'enfant seul. Les séances peuvent être enregistrées sur demande pour que vous les revoyiez.</p></div></div>
       </div>
@@ -632,7 +698,7 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
       </div>
 
       <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a4" id="q4" data-i18n-txt="faq.q4">Combien ça coûte réellement ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
-        <div class="faq-a" id="a4" role="region" aria-labelledby="q4"><div class="faq-a-in" data-placeholder="price" data-i18n="faq.a4"><p>À partir de 49 € par mois pour une séance hebdomadaire de 45 minutes, sans frais d'inscription. Le tarif exact dépend de la formule (individuel ou petit groupe) et du nombre de séances. Il vous est annoncé avant que vous décidiez, jamais après.</p></div></div>
+        <div class="faq-a" id="a4" role="region" aria-labelledby="q4"><div class="faq-a-in" data-placeholder="price" data-i18n="faq.a4"><p>De 39 € à 89 € par mois selon le nombre de séances, sans frais d'inscription : 39 € pour une séance par semaine, 69 € pour deux, 89 € pour trois. Le 2ᵉ enfant bénéficie de −15 %, le 3ᵉ de −20 %.</p><p>Payer trois mois ou un an d'avance réduit encore le tarif. Le cours individuel est possible : demandez-nous le tarif, il vous est annoncé avant que vous décidiez.</p></div></div>
       </div>
 
       <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="a5" id="q5" data-i18n-txt="faq.q5">Et si mon enfant n'accroche pas ?<span class="faq-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
@@ -662,16 +728,16 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
     <div>
       <span class="eyebrow light rv" data-i18n="final.eye">Dernière étape</span>
       <h2 class="rv" data-d="1" data-i18n="final.h2">Réservez la séance gratuite de votre enfant.</h2>
-      <p class="lead rv" data-d="2" data-i18n="final.lead">Vous n'avez pas besoin de parler arabe, ni d'avoir tout organisé. Juste de dire oui à 45 minutes.</p>
+      <p class="lead rv" data-d="2" data-i18n="final.lead">Vous n'avez pas besoin de parler arabe, ni d'avoir tout organisé. Juste de dire oui à une heure.</p>
       <ul class="fbullets rv" data-d="2">
-        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="final.b1">45 minutes, entièrement offertes</i></li>
+        <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="final.b1">1 heure de cours, entièrement offerte</i></li>
         <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="final.b2">Aucune carte bancaire demandée</i></li>
         <li><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="final.b3">Réponse WhatsApp en moins de 5 minutes</i></li>
       </ul>
       <p class="rv" data-d="3" style="margin-top:20px;font-size:.9rem;color:rgba(255,255,255,.7)">
         <i data-i18n="final.waQ">Vous préférez parler d'abord ?</i>
         <!-- WHATSAPP_NUMBER -->
-        <a href="https://wa.me/21600000000" target="_blank" rel="noopener" style="color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px" data-i18n="final.waLink">Écrivez-nous sur WhatsApp</a>.
+        <a href="https://wa.me/21628208393" target="_blank" rel="noopener" style="color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px" data-i18n="final.waLink">Écrivez-nous sur WhatsApp</a>.
       </p>
     </div>
 
@@ -690,7 +756,7 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
           <!-- ÉTAPE 1 : micro-engagement, aucune donnée personnelle -->
           <div class="step-pane active" id="pane1">
             <h3 data-i18n="form.s1h">Quel âge a votre enfant ?</h3>
-            <p class="sub" data-i18n="form.s1sub">Pour l'orienter vers le bon professeur.</p>
+            <p class="sub" data-i18n="form.s1sub">Pour le placer dans le bon groupe de niveau.</p>
             <div class="ages" role="group" aria-label="Âge de l'enfant">
               <button type="button" class="age" data-age="5-6 ans" data-i18n="form.a1">5–6 ans</button>
               <button type="button" class="age" data-age="7-8 ans" data-i18n="form.a2">7–8 ans</button>
@@ -746,7 +812,7 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
           <h3><i data-i18n="done.h1">C'est enregistré,</i> <span id="doneName">merci</span> !</h3>
           <p><i data-i18n="done.p1">On vous écrit sur WhatsApp dans les prochaines minutes pour fixer le créneau de</i> <span id="doneChild">votre enfant</span>.</p>
           <!-- WHATSAPP_NUMBER -->
-          <a class="btn btn-primary btn-block" href="https://wa.me/21600000000" target="_blank" rel="noopener" data-i18n="done.wa">Ouvrir WhatsApp maintenant</a>
+          <a class="btn btn-primary btn-block" href="https://wa.me/21628208393" target="_blank" rel="noopener" data-i18n="done.wa">Ouvrir WhatsApp maintenant</a>
           <p class="privacy" style="margin-top:12px" data-i18n="done.close">Vous pouvez fermer cette fenêtre.</p>
         </div>
       </div>
@@ -813,10 +879,10 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
      ========================================================== */
   var AR={
     'meta.title':'كازا كلاس — القرآن لأطفالكم بلغة يفهمونها',
-    'meta.desc':'حصص عبر الإنترنت من 45 دقيقة للأطفال من 5 إلى 15 سنة المولودين في أوروبا. قصص القرآن ثم القراءة. الحصة الأولى مجانية.',
+    'meta.desc':'دروس عربية وقرآن عبر الإنترنت للأطفال من 5 إلى 15 سنة المولودين في أوروبا. حصص من ساعة، مجموعات من 3 أطفال على الأكثر. حصّة تجريبية مجّانية.',
 
-    'hero.h1':'طفلك يتعلّم القرآن <span class="grad-text">بلغة يفهمها</span>، مع معلّم خاصّ به وحده.',
-    'hero.lead':'خمس وأربعون دقيقة عبر الإنترنت، للأطفال من 5 إلى 15 سنة المولودين في أوروبا. <b>الحصّة الأولى مجّانية.</b>',
+    'hero.h1':'طفلك يتعلّم القرآن <span class="grad-text">بلغة يفهمها</span>، في مجموعة من ثلاثة أطفال على الأكثر.',
+    'hero.lead':'ساعة واحدة عبر الإنترنت، للأطفال من 5 إلى 15 سنة المولودين في أوروبا. <b>الحصّة التجريبية مجّانية.</b>',
     'cta.book':'احجز الحصّة المجّانية',
     'cta.short':'حصّة مجّانية',
     'r.nocard':'بدون بطاقة بنكية',
@@ -854,22 +920,37 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
     'steps.h2b':'نراسلك على واتساب',
     'steps.p2':'في أقلّ من خمس دقائق خلال النهار. نختار معاً الموعد الذي يناسبك.',
     'steps.m2':'القرار بيدك',
-    'steps.h3':'حصّة مجّانية من 45 دقيقة',
+    'steps.h3':'حصّة تجريبية مجّانية من ساعة',
     'steps.p3':'يلتقي طفلك بمعلّمه. تقرّر بعدها — أو لا تقرّر شيئاً.',
     'steps.m3':'بدون أيّ التزام',
 
-    'offer.eye':'العرض',
-    'offer.h2':'ما الذي تحصل عليه، وبكم.',
-    'offer.label':'اشتراك شهري',
-    'offer.price':'ابتداءً من 49 €<small> / شهرياً</small>',
-    'offer.strike':'أي نحو 12 € للحصّة · بدون رسوم تسجيل',
-    'offer.li1':'<b>حصّة واحدة من 45 دقيقة أسبوعياً</b> مع نفس المعلّم',
-    'offer.li2':'<b>موعد ثابت</b> تختاره أنت، مساءً أو في عطلة نهاية الأسبوع',
-    'offer.li3':'<b>تقرير تقدّم</b> يُرسل إليك كلّ شهر',
-    'offer.li4':'الحصّة <b>تُؤجَّل ولا تضيع</b> إن لم يناسبك الأسبوع',
-    'offer.li5':'المعلّم <b>متاح على واتساب</b>',
-    'offer.gT':'لا شيء يلزمك.',
-    'offer.gS':'الحصّة الأولى مجّانية. ويمكنك إيقاف الاشتراك متى شئت، دون تبرير ودون إشعار مسبق.',
+    'offer.eye':'صيغنا',
+    'offer.h2':'ثلاث صيغ. وحصّة تجريبية واحدة لتختار.',
+    'offer.k1':'ساعة لكلّ حصّة',
+    'offer.k2':'مجموعة من 3 أطفال على الأكثر',
+    'offer.k3':'إمكانية درس فردي',
+    'offer.k4':'موعد ثابت بتوقيت أوروبا',
+    'perMonth':' / شهرياً',
+    'p1.name':'اكتشاف',
+    'p1.freq':'حصّة واحدة أسبوعياً',
+    'p1.what':'عربية <b>أو</b> قرآن، حسب الحاجة',
+    'p1.old':'45 €','p1.new':'39 €',
+    'p1.long':'3 أشهر: 97,50 € · سنة: 351 €',
+    'p2.badge':'الأكثر اختياراً',
+    'p2.name':'شبه مكثّف',
+    'p2.freq':'حصّتان أسبوعياً',
+    'p2.what':'باقة مدمجة: <b>عربية + قرآن</b>',
+    'p2.old':'79 €','p2.new':'69 €',
+    'p2.long':'3 أشهر: 172,50 € · سنة: 621 €',
+    'p3.name':'مكثّف',
+    'p3.freq':'ثلاث حصص أسبوعياً',
+    'p3.what':'عربية <b>وقرآن</b> في انغماس كامل',
+    'p3.old':'99 €','p3.new':'89 €',
+    'p3.long':'3 أشهر: 222,50 € · سنة: 801 €',
+    'promo.t':'أسعار الدخول المدرسي، تُجمع مع تخفيض الإخوة',
+    'promo.s':'الطفل الثاني −15 % · الطفل الثالث −20 %',
+    'offer.gT':'تجرّب قبل أن تدفع.',
+    'offer.gS':'الحصّة التجريبية مجّانية وبدون بطاقة بنكية. وبعدها، الصيغة الشهرية تتوقّف متى طلبت، دون تبرير ودون إشعار مسبق.',
     'offer.cta':'ابدأ بالحصّة المجّانية',
     'cmp.1t':'مدرسة يوم السبت',
     'cmp.1s':'تنقّل، مجموعة من 20 طفلاً، موعد مفروض',
@@ -877,19 +958,21 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
     'cmp.2t':'الفيديوهات على الإنترنت',
     'cmp.2s':'مجّانية، لكن لا أحد يصحّح ولا أحد يتابع',
     'cmp.2m':'انقطاع سريع',
-    'cmp.3s':'معلّم واحد، موعد ثابت، بلغة يفهمها، من البيت',
+    'cmp.3s':'ثلاثة أطفال على الأكثر، حسب السنّ والمستوى، من البيت',
     'cmp.3m':'مناسب',
 
     'faq.eye':'أسئلتكم',
     'faq.h2':'الأسئلة التي يطرحها علينا كلّ الأولياء.',
     'faq.q1':'طفلي لا يعرف كلمة واحدة بالعربية. هل هذا عائق؟',
     'faq.a1':'<p>هذه حال أغلب تلاميذنا. كلّ شيء يُشرح بلغة يفهمها الطفل، والعربية تأتي حرفاً بعد حرف. طفل لم يسمع العربية في البيت قطّ يمكنه أن يبدأ الاثنين القادم.</p>',
+    'faq.q9':'هل الحصص فردية أم في مجموعة؟',
+    'faq.a9':'<p>في مجموعة من ثلاثة أطفال على الأكثر، يُجمَعون حسب السنّ والمستوى. هذه صيغتنا المعتادة، وهي أيضاً صيغة الحصّة التجريبية المجّانية. ضمن ثلاثة، يقرأ كلّ طفل بصوت عالٍ عدّة مرّات في الحصّة ويصحّح له المعلّم.</p><p>الدرس الفردي متاح أيضاً إن كنت تفضّله: أخبرنا على واتساب ونعلمك بالسعر.</p>',
     'faq.q2':'هل يجب أن أبقى بجانبه أثناء الحصّة؟',
     'faq.a2':'<p>كما تفضّل. كثير من الأولياء يبقون في الحصّة الأولى ثمّ يتركون الطفل وحده. ويمكن تسجيل الحصص عند الطلب لتشاهدها لاحقاً.</p>',
     'faq.q3':'من هم المعلّمون بالضبط؟',
     'faq.a3':'<p>معلّمون تونسيون يتقنون الفرنسية، مدرَّبون على تعليم القرآن للأطفال، ومُختارون على أساس لطفهم بقدر ما هم مُختارون على أساس مستواهم.</p><p>تلتقي بمعلّم طفلك منذ الحصّة المجّانية، ويمكنك طلب تغييره إن لم يحصل الانسجام.</p>',
     'faq.q4':'كم يكلّف هذا فعلياً؟',
-    'faq.a4':'<p>ابتداءً من 49 € شهرياً لحصّة أسبوعية من 45 دقيقة، بدون رسوم تسجيل. السعر النهائي يتوقّف على الصيغة (فردية أو مجموعة صغيرة) وعلى عدد الحصص. ويُعلَن لك قبل أن تقرّر، لا بعد ذلك.</p>',
+    'faq.a4':'<p>من 39 € إلى 89 € شهرياً حسب عدد الحصص، بدون رسوم تسجيل: 39 € لحصّة واحدة أسبوعياً، 69 € لحصّتين، 89 € لثلاث. الطفل الثاني يستفيد من −15 %، والثالث من −20 %.</p><p>الدفع لثلاثة أشهر أو لسنة يخفّض السعر أكثر. والدرس الفردي ممكن: اطلب منّا السعر، ويُعلَن لك قبل أن تقرّر.</p>',
     'faq.q5':'وإن لم يتعلّق طفلي بالأمر؟',
     'faq.a5':'<p>لا شيء عليك، ولا يلزمك أيّ تبرير. هذا بالضبط دور الحصّة المجّانية: أن ترى ردّ فعل طفلك قبل أن تقرّر.</p><p>وإن كنت قد بدأت فعلاً، يتوقّف الاشتراك متى طلبت ذلك.</p>',
     'faq.q6':'مواعيدنا معقّدة. هل تتأقلمون معها؟',
@@ -901,8 +984,8 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
 
     'final.eye':'الخطوة الأخيرة',
     'final.h2':'احجز الحصّة المجّانية لطفلك.',
-    'final.lead':'لا تحتاج إلى إتقان العربية، ولا إلى ترتيب كلّ شيء. تحتاج فقط أن تقول نعم لخمس وأربعين دقيقة.',
-    'final.b1':'45 دقيقة مجّانية بالكامل',
+    'final.lead':'لا تحتاج إلى إتقان العربية، ولا إلى ترتيب كلّ شيء. تحتاج فقط أن تقول نعم لساعة واحدة.',
+    'final.b1':'ساعة كاملة من الدرس، مجّاناً',
     'final.b2':'لا نطلب أيّ بطاقة بنكية',
     'final.b3':'ردّ على واتساب في أقلّ من 5 دقائق',
     'final.waQ':'تفضّل أن تتحدّث أوّلاً؟',
@@ -910,7 +993,7 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
 
     'form.stepN':'الخطوة {n} / 2',
     'form.s1h':'كم عمر طفلك؟',
-    'form.s1sub':'لتوجيهه إلى المعلّم المناسب.',
+    'form.s1sub':'لوضعه في مجموعة المستوى المناسبة.',
     'form.a1':'5–6 سنوات','form.a2':'7–8 سنوات','form.a3':'9–10 سنوات',
     'form.a4':'11–12 سنة','form.a5':'13–15 سنة','form.a6':'أكثر من طفل',
     'form.s1note':'لا نطلب أيّ معلومة شخصية في هذه الخطوة.',
