@@ -189,29 +189,39 @@ section{padding-block:clamp(46px,9vw,88px)}
 .olist li{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;color:var(--ink-soft)}
 .olist svg{width:19px;height:19px;flex:none;color:var(--green);margin-top:1px}
 .olist b{color:var(--ink);font-weight:700}
-/* Ce qui est commun aux trois formules */
-.ocommon{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-bottom:22px}
-.ocommon span{display:inline-flex;align-items:center;gap:7px;font-size:.87rem;font-weight:700;color:var(--ink-soft)}
-.ocommon svg{width:16px;height:16px;flex:none;color:var(--green)}
+/* Ce qui est inclus dans les trois formules */
+.incl{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 20px;margin-bottom:20px;box-shadow:var(--sh-sm)}
+.incl > b{display:block;text-align:center;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-deep);margin-bottom:14px}
+.incl ul{display:grid;gap:9px 20px}
+.incl li{position:relative;padding-inline-start:26px;font-size:.9rem;font-weight:600;color:var(--ink-soft);line-height:1.4}
+.incl li::before{content:"";position:absolute;inset-inline-start:0;top:2px;width:18px;height:18px;border-radius:50%;background:#E9F7EE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2316A34A'%3E%3Cpath d='M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z'/%3E%3C/svg%3E") center/12px no-repeat}
 
 /* Grille tarifaire */
-.pgrid{display:grid;gap:14px}
-.pcard{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 20px;box-shadow:var(--sh-sm);text-align:center}
-.pcard.best{border-color:rgba(232,89,12,.45);box-shadow:var(--sh-md);padding-top:30px}
-.pbadge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:100px;background:var(--grad-cta);color:#fff;font-size:.72rem;font-weight:800;white-space:nowrap;box-shadow:var(--sh-cta)}
-.phead b{display:block;font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--ink)}
+.pgrid{display:grid;gap:16px;align-items:stretch}
+.pcard{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 20px;box-shadow:var(--sh-sm);text-align:center}
+.pcard.best{border:2px solid var(--orange);box-shadow:var(--sh-lg);padding-top:30px;background:linear-gradient(180deg,#FFF8F1 0%,#fff 130px)}
+.pbadge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:6px 15px;border-radius:100px;background:var(--grad-cta);color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.04em;white-space:nowrap;box-shadow:var(--sh-cta)}
+.phead b{display:block;font-family:var(--serif);font-size:1.22rem;font-weight:600;color:var(--ink)}
 .phead span{display:block;font-size:.83rem;font-weight:700;color:var(--orange);margin-top:3px}
 .pwhat{font-size:.9rem;line-height:1.45;margin-top:11px;min-height:2.6em}
-.pprice{margin-top:13px;line-height:1}
+.pprice{margin-top:12px;line-height:1}
 .pprice s{font-size:.95rem;color:var(--muted);margin-inline-end:5px}
-.pprice b{font-family:var(--serif);font-size:2.1rem;font-weight:600;color:var(--ink)}
+.pprice b{font-family:var(--serif);font-size:2.2rem;font-weight:600;color:var(--ink)}
 .pprice small{font-size:.85rem;font-weight:700;color:var(--muted)}
-.plong{margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);font-size:.81rem;color:var(--muted)}
+/* Le prix à la séance : c'est lui qui rend le montant mensuel petit */
+.punit{margin-top:7px;font-size:.87rem;color:var(--muted)}
+.punit b{font-weight:800;color:var(--blue-deep)}
+.punit.best-unit b{color:var(--green)}
+.pcard .btn{margin-top:auto;padding-top:16px;padding-bottom:16px}
+.pcard .btn:not(.btn-primary){margin-top:18px}
+.pcard.best .btn{margin-top:18px}
+.pnote{margin-top:12px;text-align:center;font-size:.78rem;color:var(--muted)}
 
-/* Réduction fratrie */
-.promo{margin-top:16px;padding:14px 18px;border-radius:var(--r-md);background:var(--cream);border:1px solid #F6E7D2;text-align:center}
-.promo b{display:block;font-size:.92rem;color:var(--ink)}
-.promo span{display:block;font-size:.86rem;color:var(--orange);font-weight:700;margin-top:3px}
+/* Les deux économies réelles, sorties du gris illisible */
+.pextra{display:grid;gap:12px;margin-top:18px}
+.pbox{padding:15px 18px;border-radius:var(--r-md);background:var(--cream);border:1px solid #F6E7D2}
+.pbox b{display:block;font-size:.95rem;color:var(--ink)}
+.pbox span{display:block;font-size:.86rem;color:var(--ink-soft);line-height:1.45;margin-top:4px}
 
 .guarantee{display:flex;gap:12px;align-items:flex-start;margin-top:20px;padding:15px;border-radius:var(--r-md);background:#F1FAF3;border:1px solid #D6F0DD}
 .guarantee svg{width:24px;height:24px;flex:none;color:var(--green)}
@@ -380,6 +390,8 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
   .recog-grid{grid-template-columns:1fr 1fr}
   .ages{grid-template-columns:repeat(3,1fr)}
   .pgrid{grid-template-columns:repeat(3,1fr);gap:16px}
+  .incl ul{grid-template-columns:1fr 1fr}
+  .pextra{grid-template-columns:1fr 1fr}
   .modal{place-items:center}
   .modal-panel{border-radius:var(--r-xl);padding:8px 0}
   .modal-panel .formbox{border-radius:var(--r-xl);padding:20px 24px}
@@ -589,37 +601,49 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
     <div class="sec-head measure center rv">
       <span class="eyebrow" data-i18n="offer.eye">Nos formules</span>
       <h2 data-i18n="offer.h2">Trois formules. Une séance d'essai pour choisir.</h2>
+      <p class="lead" data-i18n="offer.sub">Le même professeur chaque semaine, un créneau fixe, et une heure de cours à chaque fois.</p>
     </div>
 
-    <!-- Ce qui est commun aux trois formules : évite de répéter 4 lignes par carte -->
-    <div class="ocommon rv">
-      <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="offer.k1">1 heure par séance</i></span>
-      <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="offer.k2">Coran : 3 enfants maximum</i></span>
-      <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="offer.k3">Cours individuel possible</i></span>
-      <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="offer.k4">Créneau fixe, horaires Europe</i></span>
+    <!-- INCLUS PARTOUT — c'est ce qui justifie le prix. Sans ce bloc, le
+         montant est seul face au visiteur, sans contrepartie visible. -->
+    <div class="incl rv">
+      <b data-i18n="incl.t">Inclus dans les trois formules</b>
+      <ul>
+        <li data-i18n="incl.1">1 heure de cours par séance</li>
+        <li data-i18n="incl.2">Le même professeur chaque semaine</li>
+        <li data-i18n="incl.3">Coran : 3 enfants maximum par groupe</li>
+        <li data-i18n="incl.4">Séance reportée, jamais perdue</li>
+        <li data-i18n="incl.5">Bilan de progression chaque mois</li>
+        <li data-i18n="incl.6">Professeur joignable sur WhatsApp</li>
+      </ul>
     </div>
 
-    <!-- TARIFS — data-placeholder="price" : mettre à jour à la fin de l'offre de rentrée -->
+    <!-- TARIFS — data-placeholder="price" : mettre à jour à la fin de l'offre
+         de rentrée. Chaque carte a son propre CTA : le visiteur qui a choisi
+         sa formule ne doit pas avoir à chercher où cliquer, et la formule
+         cliquée part dans le lead (cta_source) pour l'échange WhatsApp. -->
     <div class="pgrid" data-placeholder="price">
       <article class="pcard rv">
         <div class="phead">
           <b data-i18n="p1.name">Découverte</b>
           <span data-i18n="p1.freq">1 séance par semaine</span>
         </div>
-        <p class="pwhat" data-i18n="p1.what">Arabe <b>ou</b> Coran, au choix selon les besoins</p>
+        <p class="pwhat" data-i18n="p1.what">Arabe <b>ou</b> Coran, au choix</p>
         <p class="pprice"><s data-i18n="p1.old">45 €</s> <b data-i18n="p1.new">39 €</b><small data-i18n="perMonth"> / mois</small></p>
-        <p class="plong" data-i18n="p1.long">3 mois : 97,50 € · 1 an : 351 €</p>
+        <p class="punit" data-i18n="p1.unit">soit <b>9,75 €</b> la séance</p>
+        <button class="btn btn-ghost btn-block" data-cta="offre-decouverte" data-i18n="p.cta">Essayer cette formule</button>
       </article>
 
       <article class="pcard best rv" data-d="1">
-        <span class="pbadge" data-i18n="p2.badge">Le plus choisi</span>
+        <span class="pbadge" data-i18n="p2.badge">Recommandé</span>
         <div class="phead">
           <b data-i18n="p2.name">Semi-intensif</b>
           <span data-i18n="p2.freq">2 séances par semaine</span>
         </div>
-        <p class="pwhat" data-i18n="p2.what">Pack combiné : <b>1 arabe + 1 Coran</b></p>
+        <p class="pwhat" data-i18n="p2.what">1 cours d'arabe <b>+</b> 1 cours de Coran</p>
         <p class="pprice"><s data-i18n="p2.old">79 €</s> <b data-i18n="p2.new">69 €</b><small data-i18n="perMonth"> / mois</small></p>
-        <p class="plong" data-i18n="p2.long">3 mois : 172,50 € · 1 an : 621 €</p>
+        <p class="punit" data-i18n="p2.unit">soit <b>8,63 €</b> la séance</p>
+        <button class="btn btn-primary btn-block" data-cta="offre-semi" data-i18n="p.cta">Essayer cette formule</button>
       </article>
 
       <article class="pcard rv" data-d="2">
@@ -629,13 +653,24 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
         </div>
         <p class="pwhat" data-i18n="p3.what">Arabe <b>et</b> Coran en immersion</p>
         <p class="pprice"><s data-i18n="p3.old">99 €</s> <b data-i18n="p3.new">89 €</b><small data-i18n="perMonth"> / mois</small></p>
-        <p class="plong" data-i18n="p3.long">3 mois : 222,50 € · 1 an : 801 €</p>
+        <p class="punit best-unit" data-i18n="p3.unit">soit <b>7,42 €</b> la séance</p>
+        <button class="btn btn-ghost btn-block" data-cta="offre-intensif" data-i18n="p.cta">Essayer cette formule</button>
       </article>
     </div>
 
-    <div class="promo rv" data-placeholder="price">
-      <b data-i18n="promo.t">Tarifs de rentrée, cumulables avec la réduction fratrie</b>
-      <span data-i18n="promo.s">2ᵉ enfant −15 % · 3ᵉ enfant −20 %</span>
+    <p class="pnote" data-i18n="p.note">Prix à la séance calculé sur 4 séances par mois.</p>
+
+    <!-- Les deux vraies économies de la grille, sorties du gris 11 px où
+         elles étaient illisibles. -->
+    <div class="pextra" data-placeholder="price">
+      <div class="pbox rv">
+        <b data-i18n="pe1.t">Payer l'année : 3 mois offerts</b>
+        <span data-i18n="pe1.s">351 € · 621 € · 801 € selon la formule, au lieu de 12 mensualités.</span>
+      </div>
+      <div class="pbox rv" data-d="1">
+        <b data-i18n="pe2.t">Plusieurs enfants : jusqu'à −20 %</b>
+        <span data-i18n="pe2.s">2ᵉ enfant −15 %, 3ᵉ enfant −20 %, cumulable avec les tarifs de rentrée. Deux enfants en Semi-intensif : 127,65 € au lieu de 138 €.</span>
+      </div>
     </div>
 
     <div class="ocard rv" style="max-width:560px;margin-inline:auto;margin-top:22px">
@@ -648,6 +683,11 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
       </div>
 
       <button class="btn btn-primary btn-block rv" data-cta="offre" style="margin-top:20px" data-i18n="offer.cta">Commencer par la séance gratuite</button>
+      <div class="reassure">
+        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="r.free">Gratuit</i></span>
+        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="r.nocard">Sans carte bancaire</i></span>
+        <span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 14.5 3.5 10l1.4-1.4L8 11.7l7.1-7.1L16.5 6 8 14.5Z"/></svg> <i data-i18n="r.nocommit">Sans engagement</i></span>
+      </div>
     </div>
 
     <!-- Effet de contraste : positionne l'offre face aux alternatives réelles du parent -->
@@ -923,29 +963,37 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
 
     'offer.eye':'صيغنا',
     'offer.h2':'ثلاث صيغ. وحصّة تجريبية لتختار.',
-    'offer.k1':'ساعة لكلّ حصّة',
-    'offer.k2':'القرآن: 3 أطفال على الأكثر',
-    'offer.k3':'إمكانية درس فردي',
-    'offer.k4':'موعد ثابت بتوقيت أوروبا',
+    'offer.sub':'نفس المعلّم كلّ أسبوع، وموعد ثابت، وساعة كاملة في كلّ حصّة.',
+    'incl.t':'مشترك بين الصيغ الثلاث',
+    'incl.1':'ساعة كاملة من الدرس في كلّ حصّة',
+    'incl.2':'نفس المعلّم كلّ أسبوع',
+    'incl.3':'القرآن: 3 أطفال على الأكثر في المجموعة',
+    'incl.4':'الحصّة تُؤجَّل ولا تضيع',
+    'incl.5':'تقرير تقدّم كلّ شهر',
+    'incl.6':'المعلّم متاح على واتساب',
     'perMonth':' / شهرياً',
+    'p.cta':'جرّب هذه الصيغة',
+    'p.note':'سعر الحصّة محسوب على أساس 4 حصص في الشهر.',
     'p1.name':'اكتشاف',
     'p1.freq':'حصّة واحدة أسبوعياً',
-    'p1.what':'عربية <b>أو</b> قرآن، حسب الحاجة',
+    'p1.what':'عربية <b>أو</b> قرآن، حسب الاختيار',
     'p1.old':'45 €','p1.new':'39 €',
-    'p1.long':'3 أشهر: 97,50 € · سنة: 351 €',
-    'p2.badge':'الأكثر اختياراً',
+    'p1.unit':'أي <b>9,75 €</b> للحصّة',
+    'p2.badge':'صيغتنا المقترحة',
     'p2.name':'شبه مكثّف',
     'p2.freq':'حصّتان أسبوعياً',
-    'p2.what':'باقة مدمجة: <b>عربية + قرآن</b>',
+    'p2.what':'درس عربية <b>+</b> درس قرآن',
     'p2.old':'79 €','p2.new':'69 €',
-    'p2.long':'3 أشهر: 172,50 € · سنة: 621 €',
+    'p2.unit':'أي <b>8,63 €</b> للحصّة',
     'p3.name':'مكثّف',
     'p3.freq':'ثلاث حصص أسبوعياً',
     'p3.what':'عربية <b>وقرآن</b> في انغماس كامل',
     'p3.old':'99 €','p3.new':'89 €',
-    'p3.long':'3 أشهر: 222,50 € · سنة: 801 €',
-    'promo.t':'أسعار الدخول المدرسي، تُجمع مع تخفيض الإخوة',
-    'promo.s':'الطفل الثاني −15 % · الطفل الثالث −20 %',
+    'p3.unit':'أي <b>7,42 €</b> للحصّة',
+    'pe1.t':'الدفع السنوي: 3 أشهر مجّاناً',
+    'pe1.s':'351 € · 621 € · 801 € حسب الصيغة، بدل اثني عشر قسطاً شهرياً.',
+    'pe2.t':'عدّة أطفال: حتّى −20 %',
+    'pe2.s':'الطفل الثاني −15 %، والثالث −20 %، وتُجمع مع أسعار الدخول المدرسي. طفلان في الصيغة شبه المكثّفة: 127,65 € بدل 138 €.',
     'offer.gT':'تجرّب قبل أن تدفع.',
     'offer.gS':'الحصّة التجريبية مجّانية وبدون بطاقة بنكية. وبعدها، الصيغة الشهرية تتوقّف متى طلبت، دون تبرير ودون إشعار مسبق.',
     'offer.cta':'ابدأ بالحصّة المجّانية',
