@@ -17,10 +17,11 @@
      Tous les points ci-dessous sont des EMPLACEMENTS, pas des données réelles.
      Diffuser ces valeurs telles quelles serait de la publicité mensongère.
 
-     1. data-placeholder="video"    → le témoignage filmé d'une cliente,
-                                       section « Témoignage » (en attente).
-                                       La vidéo du hero est en place :
-                                       assets/extrait-seance.mp4
+     1. data-placeholder="quote"    → prénom, ville et citation écrite de la
+                                       maman du message vocal, section
+                                       « Témoignage ». La citation compte
+                                       autant que l'audio : beaucoup de
+                                       visiteurs font défiler sans le son.
      2. data-placeholder="price"    → tarifs de rentree (promo) : a mettre a jour
                                        a la fin de l'operation, et verifier que
                                        les prix barres correspondent bien au prix
@@ -161,11 +162,26 @@ section{padding-block:clamp(46px,9vw,88px)}
 
 /* ---------- TÉMOIGNAGE ---------- */
 .proof{background:linear-gradient(180deg,#fff 0%,var(--cream) 100%)}
-.proof-solo{max-width:320px;margin-inline:auto}
-/* Légende sous la vidéo — utilisée dès que le prénom sera renseigné */
-.vmeta{padding:14px 4px 0;text-align:center}
-.vmeta b{display:block;font-size:.97rem;line-height:1.3}
-.vmeta span{display:block;font-size:.83rem;color:var(--muted);line-height:1.35;margin-top:2px}
+/* Note vocale — l'apparence d'un message WhatsApp, familière à cette
+   audience, et plus crédible qu'une vidéo montée. */
+.vnote{max-width:520px;margin-inline:auto;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;box-shadow:var(--sh-md)}
+.vn-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.vn-av{width:44px;height:44px;flex:none;border-radius:50%;background:var(--grad-blue);color:#fff;display:grid;place-items:center;font-family:var(--serif);font-size:1.1rem;font-weight:600}
+.vn-id b{display:block;font-size:.97rem;line-height:1.3;color:var(--ink)}
+.vn-id > span{display:block;font-size:.83rem;color:var(--muted);margin-top:2px}
+.vn-player{display:flex;align-items:center;gap:13px;padding:12px 14px;border-radius:100px;background:var(--sky)}
+.vn-play{width:46px;height:46px;flex:none;border-radius:50%;background:var(--grad-cta);color:#fff;display:grid;place-items:center;box-shadow:var(--sh-cta);transition:transform .15s ease}
+.vn-play:hover{transform:scale(1.06)}
+.vn-play svg{width:19px;height:19px}
+.vn-ico-play{margin-inline-start:3px}
+/* Barres de niveau : décoratives, elles se colorent au fil de la lecture */
+.vn-wave{flex:1;display:flex;align-items:center;gap:2px;height:30px;min-width:0}
+.vn-wave i{flex:1;min-width:2px;border-radius:2px;background:#C9D6EA;transition:background .12s linear}
+.vn-wave i.on{background:var(--orange)}
+.vn-time{flex:none;font-size:.82rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;min-width:34px;text-align:end}
+.vn-err{margin-top:10px;font-size:.82rem;font-weight:600;color:#B91C1C;text-align:center}
+/* La citation écrite : lue par ceux qui font défiler sans le son */
+.vn-quote{margin-top:16px;padding-top:15px;border-top:1px solid var(--line);font-family:var(--serif);font-size:clamp(1rem,3.4vw,1.15rem);font-weight:600;line-height:1.45;color:var(--ink);text-align:center}
 
 /* ---------- ÉTAPES ---------- */
 .steps{background:#fff}
@@ -524,38 +540,53 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
 </section>
 
 <!-- ══════════ 3. PREUVE SOCIALE ══════════
-     Objectif : preuve par les pairs. Un seul témoignage filmé, en attente.
+     Objectif : preuve par les pairs. Un message vocal d'une maman,
+     presente comme une note vocale WhatsApp : le format est immediatement
+     reconnaissable par cette audience, et il sonne vrai la ou une video
+     montee sonnerait publicitaire.
 
-     EMPLACEMENT VIDÉO — volontairement vide jusqu'à réception du fichier.
-     Pour le brancher : deposez la video dans assets/ puis remplacez le bloc
-     <svg class="vid-bg">…</svg> par, sur le modele du hero :
-       <video class="vid-bg" preload="metadata" playsinline
-              src="assets/temoignage.mp4#t=0.5"
-              aria-label="Témoignage d'une maman"></video>
-     Puis retirez data-placeholder="video" et décommentez le bloc .vmeta
-     sous la vidéo pour y mettre le prénom et la ville de la personne. -->
+     Le fichier est charge en preload="none" : il ne part qu'au clic.
+     data-placeholder="quote" — le prenom, la ville et la citation ecrite
+     restent a renseigner. La citation compte autant que l'audio : une
+     grande partie des visiteurs fait defiler sans le son. -->
 <section class="proof" id="avis">
   <div class="wrap">
     <div class="sec-head measure center rv">
       <span class="eyebrow" data-i18n="proof.eye">Témoignage</span>
       <h2 data-i18n="proof.h2">Elle avait les mêmes doutes que vous.</h2>
+      <p class="lead" data-i18n="proof.sub">Elle nous a laissé ce message après les premières semaines.</p>
     </div>
 
-    <div class="proof-solo rv">
-      <button class="vid vid-portrait" data-video="temoignage" data-placeholder="video"
-              aria-label="Emplacement du témoignage vidéo">
-        <svg class="vid-bg" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect width="360" height="640" fill="#1E3A8A"/>
-          <circle cx="300" cy="110" r="120" fill="#2E7FE8" opacity=".45"/>
-          <circle cx="50" cy="560" r="140" fill="#F5A623" opacity=".22"/>
-        </svg>
-        <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5Z"/></svg></span>
-        <span class="vplayer" data-player><span><b data-i18n="proof.phT">Emplacement vidéo</b><span data-i18n="proof.phS">Témoignage d'une cliente, à venir.</span></span></span>
-      </button>
+    <div class="vnote rv">
+      <div class="vn-head">
+        <span class="vn-av" aria-hidden="true" data-i18n="vn.initial">S</span>
+        <span class="vn-id" data-placeholder="quote">
+          <b data-i18n="vn.name">Prénom · maman de …</b>
+          <span data-i18n="vn.meta">Ville, pays</span>
+        </span>
+      </div>
 
-      <!-- À décommenter et renseigner une fois la vidéo en ligne :
-      <div class="vmeta"><b>Prénom · maman de …</b><span>Ville, pays</span></div>
-      -->
+      <div class="vn-player">
+        <button class="vn-play" type="button" aria-label="Écouter le témoignage" data-i18n-aria="vn.aria">
+          <svg class="vn-ico-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>
+          <svg class="vn-ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+        </button>
+        <span class="vn-wave" id="vnWave" aria-hidden="true"></span>
+        <span class="vn-time" id="vnTime">1:17</span>
+      </div>
+
+      <!-- data-duration : durée réelle du fichier, en secondes. Les fichiers
+           Opus de WhatsApp n'exposent pas toujours leur durée au navigateur.
+           Le lecteur s'en sert comme valeur de repli.
+           Compatibilité : Safari ne lit l'Ogg que depuis la version 17.4.
+           Pour couvrir les iPhone plus anciens, convertir en .m4a et ajouter
+           une source avant celle-ci :
+             <source src="assets/temoignage.m4a" type="audio/mp4"> -->
+      <audio id="vnAudio" preload="none" data-duration="76.7"
+             src="assets/temoignage.ogg"></audio>
+      <p class="vn-err" id="vnErr" hidden data-i18n="vn.err">La lecture a échoué sur ce navigateur.</p>
+
+      <p class="vn-quote" data-i18n="vn.quote" data-placeholder="quote">« Citation à reprendre du message vocal. »</p>
     </div>
   </div>
 </section>
@@ -946,8 +977,14 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
 
     'proof.eye':'شهادة',
     'proof.h2':'كانت لديها نفس الشكوك التي لديك.',
-    'proof.phT':'مكان الفيديو',
-    'proof.phS':'شهادة إحدى الأمّهات، قريباً.',
+    'proof.sub':'تركت لنا هذه الرسالة بعد الأسابيع الأولى.',
+    'vn.initial':'س',
+    'vn.name':'الاسم · أمّ …',
+    'vn.meta':'المدينة، البلد',
+    'vn.aria':'استمع إلى الشهادة',
+    'vn.ariaPause':'إيقاف مؤقّت',
+    'vn.err':'تعذّر تشغيل الصوت على هذا المتصفّح.',
+    'vn.quote':'« اقتباس يُؤخذ من الرسالة الصوتية. »',
 
     'steps.eye':'ثلاث خطوات',
     'steps.h2':'من هذا الزرّ إلى الحصّة الأولى: 48 ساعة.',
@@ -1212,6 +1249,77 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
   var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){
     var o=$('#faqList .faq-item.open');if(o){var p=o.querySelector('.faq-a');p.style.height=p.scrollHeight+'px'}
   },120)});
+
+  /* ---------- Note vocale du témoignage ----------
+     Lecteur maison : les contrôles natifs varient trop d'un navigateur à
+     l'autre et cassent la mise en page. preload="none" : le fichier ne
+     part qu'au premier clic. */
+  (function(){
+    var audio=$('#vnAudio'), wave=$('#vnWave'), time=$('#vnTime'),
+        play=$('.vn-play'), err=$('#vnErr');
+    if(!audio||!wave) return;
+
+    var NB=34, bars=[];
+    // Hauteurs pseudo-aléatoires mais stables : l'allure d'une forme d'onde
+    for(var i=0;i<NB;i++){
+      var b=document.createElement('i');
+      var h=30+Math.abs(Math.sin(i*1.7)*55)+((i*13)%25);
+      b.style.height=Math.min(100,h)+'%';
+      wave.appendChild(b); bars.push(b);
+    }
+
+    // Durée : celle annoncée par le navigateur, sinon celle déclarée dans
+    // le balisage — un Opus de WhatsApp n'expose pas toujours la sienne.
+    function dur(){
+      var d=audio.duration;
+      if(isFinite(d)&&d>0) return d;
+      return parseFloat(audio.getAttribute('data-duration'))||0;
+    }
+    function mmss(s){
+      if(!isFinite(s)||s<0) s=0;
+      var m=Math.floor(s/60), r=Math.floor(s%60);
+      return m+':'+(r<10?'0':'')+r;
+    }
+    function paint(){
+      var d=dur(), p=d>0?audio.currentTime/d:0;
+      for(var i=0;i<NB;i++) bars[i].classList.toggle('on', i/NB<=p);
+      time.textContent=mmss(d>0?d-audio.currentTime:0);
+    }
+    function icons(playing){
+      $('.vn-ico-play',play).hidden=playing;
+      $('.vn-ico-pause',play).hidden=!playing;
+      play.setAttribute('aria-label', playing
+        ? (lang==='ar'?(AR['vn.ariaPause']||'إيقاف مؤقّت'):'Mettre en pause')
+        : (lang==='ar'?(AR['vn.aria']||'استمع إلى الشهادة'):'Écouter le témoignage'));
+    }
+
+    play.addEventListener('click',function(){
+      if(audio.paused){
+        var pr=audio.play();
+        if(pr&&pr.catch) pr.catch(function(){ if(err) err.hidden=false; });
+        track('Audio_Play',{id:'temoignage'});
+      } else audio.pause();
+    });
+    audio.addEventListener('play',function(){icons(true)});
+    audio.addEventListener('pause',function(){icons(false)});
+    audio.addEventListener('ended',function(){
+      icons(false); audio.currentTime=0; paint();
+      track('Audio_Complete',{id:'temoignage'});
+    });
+    audio.addEventListener('timeupdate',paint);
+    audio.addEventListener('loadedmetadata',paint);
+    audio.addEventListener('error',function(){ if(err) err.hidden=false; });
+
+    // Permet de se déplacer dans le message en cliquant sur la forme d'onde
+    wave.addEventListener('click',function(e){
+      var d=dur(); if(d<=0) return;
+      var r=wave.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width;
+      if(document.documentElement.dir==='rtl') x=1-x;
+      try{ audio.currentTime=Math.max(0,Math.min(1,x))*d; }catch(_){}
+      paint();
+    });
+  })();
 
   /* ---------- Vidéos ----------
      Un bloc contenant une balise video est lu au clic. Un bloc sans video
