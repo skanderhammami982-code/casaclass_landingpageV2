@@ -173,7 +173,7 @@ section{padding-block:clamp(46px,9vw,88px)}
 .vn-av svg{width:21px;height:21px}
 .vn-id b{display:block;font-size:.97rem;line-height:1.3;color:var(--ink)}
 .vn-id > span{display:block;font-size:.83rem;color:var(--muted);margin-top:2px}
-.vn-player{display:flex;align-items:center;gap:13px;padding:12px 14px;border-radius:100px;background:var(--sky)}
+.vn-player{display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:100px;background:var(--sky)}
 .vn-play{width:46px;height:46px;flex:none;border-radius:50%;background:var(--grad-cta);color:#fff;display:grid;place-items:center;box-shadow:var(--sh-cta);transition:transform .15s ease}
 .vnote:hover .vn-play{transform:scale(1.06)}
 .vn-play svg{width:19px;height:19px;grid-area:1/1}
@@ -190,7 +190,17 @@ section{padding-block:clamp(46px,9vw,88px)}
 .vn-wave i:nth-child(3n){animation-delay:.12s}
 .vn-wave i:nth-child(3n+1){animation-delay:.24s}
 @keyframes vnPulse{0%,100%{opacity:1}50%{opacity:.35}}
-.vn-time{flex:none;font-size:.82rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;min-width:34px;text-align:end}
+.vn-time{flex:none;font-size:.82rem;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;min-width:33px;text-align:end}
+/* Pastille de vitesse. Elle s'allume dès qu'on dépasse 1× : le visiteur doit
+   voir d'un coup d'œil qu'il n'écoute pas au rythme normal. */
+.vn-speed{flex:none;min-width:40px;height:32px;padding:0 9px;border-radius:100px;background:#fff;border:1px solid var(--line);font-size:.75rem;font-weight:800;color:var(--blue-deep);font-variant-numeric:tabular-nums;line-height:1;transition:background .15s ease,color .15s ease,border-color .15s ease,transform .12s ease}
+.vn-speed:hover{border-color:var(--blue);transform:scale(1.05)}
+.vn-speed.fast{background:var(--grad-cta);border-color:transparent;color:#fff;box-shadow:0 4px 12px rgba(232,89,12,.3)}
+@media (max-width:359px){
+  .vn-player{gap:8px;padding:11px 10px}
+  .vn-play{width:42px;height:42px}
+  .vn-speed{min-width:36px;padding:0 7px}
+}
 .vn-err{margin-top:10px;font-size:.82rem;font-weight:600;color:#B91C1C;text-align:center}
 /* La citation écrite : lue par ceux qui font défiler sans le son */
 .vn-quote{margin-top:16px;padding-top:15px;border-top:1px solid var(--line);font-family:var(--serif);font-size:clamp(1rem,3.4vw,1.15rem);font-weight:600;line-height:1.45;color:var(--ink);text-align:center}
@@ -589,6 +599,9 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
         </button>
         <span class="vn-wave" id="vnWave" aria-hidden="true"></span>
         <span class="vn-time" id="vnTime">1:17</span>
+        <!-- Vitesse cyclique 1× → 1,5× → 2×, comme dans WhatsApp : un message
+             d'1 min 17 devient 39 secondes, ce qui lève l'hésitation à lancer. -->
+        <button class="vn-speed" id="vnSpeed" type="button" aria-label="Vitesse de lecture">1×</button>
       </div>
 
       <!-- data-duration : durée réelle du fichier, en secondes. Les fichiers
@@ -1123,6 +1136,9 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
 
   var lang='fr';
   var arFontsLoaded=false;
+  // Libellés construits en JavaScript : ils ne portent pas de data-i18n et
+  // doivent être régénérés à chaque changement de langue.
+  var i18nHooks=[];
 
   function loadArabicFonts(){
     if(arFontsLoaded) return; arFontsLoaded=true;
@@ -1201,6 +1217,7 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
     if(pt) pt.textContent=stepLabel($('#pane2').classList.contains('active')?2:1);
 
     markLangButtons();
+    i18nHooks.forEach(function(f){ try{ f(); }catch(_){} });
     try{ localStorage.setItem('cc_lang',lang); }catch(e){}
 
     // la hauteur d'une réponse FAQ ouverte change avec la longueur du texte
@@ -1277,23 +1294,35 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
      part qu'au premier clic. */
   (function(){
     var audio=$('#vnAudio'), wave=$('#vnWave'), time=$('#vnTime'),
-        play=$('.vn-play'), err=$('#vnErr');
+        play=$('.vn-play'), err=$('#vnErr'), speed=$('#vnSpeed');
     if(!audio||!wave) return;
 
     var card=$('#vnCard');
-    var NB=34, bars=[];
+    var NB=0, bars=[];
     /* Forme d'onde décorative. Trois sinusoïdes incommensurables donnent une
        silhouette irrégulière — de la parole, pas un motif qui se répète — et
-       une enveloppe qui retombe aux extrémités, comme un vrai enregistrement. */
-    for(var i=0;i<NB;i++){
-      var b=document.createElement('i');
-      var x=i/(NB-1);
-      var env=0.55+0.45*Math.sin(Math.PI*x);            // attaque et chute
-      var amp=Math.sin(i*1.31)*0.5+Math.sin(i*0.57)*0.3+Math.sin(i*2.9)*0.2;
-      var h=22+Math.abs(amp)*env*86;
-      b.style.height=Math.max(16,Math.min(100,h)).toFixed(1)+'%';
-      wave.appendChild(b); bars.push(b);
+       une enveloppe qui retombe aux extrémités, comme un vrai enregistrement.
+       Le nombre de barres suit la largeur disponible : à 34 barres fixes,
+       elles débordaient de leur rangée sur un écran de 320 px. */
+    function buildWave(){
+      var n=Math.max(16, Math.min(40, Math.floor((wave.clientWidth||240)/5)));
+      if(n===NB) return;
+      NB=n; wave.innerHTML=''; bars=[];
+      for(var i=0;i<NB;i++){
+        var b=document.createElement('i');
+        var x=i/(NB-1);
+        var env=0.55+0.45*Math.sin(Math.PI*x);          // attaque et chute
+        var amp=Math.sin(i*1.31)*0.5+Math.sin(i*0.57)*0.3+Math.sin(i*2.9)*0.2;
+        var h=22+Math.abs(amp)*env*86;
+        b.style.height=Math.max(16,Math.min(100,h)).toFixed(1)+'%';
+        wave.appendChild(b); bars.push(b);
+      }
+      paint();
     }
+    buildWave();
+    var wvT; addEventListener('resize',function(){
+      clearTimeout(wvT); wvT=setTimeout(buildWave,150);
+    });
 
     // Durée : celle annoncée par le navigateur, sinon celle déclarée dans
     // le balisage — un Opus de WhatsApp n'expose pas toujours la sienne.
@@ -1334,6 +1363,30 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
         track('Audio_Play',{id:'temoignage'});
       } else audio.pause();
     }
+    /* ---- Vitesse de lecture ---- */
+    var RATES=[1,1.5,2], ri=0;
+    function rateLabel(r){ return String(r).replace('.', lang==='ar'?'.':',')+'×'; }
+    function applyRate(){
+      if(!speed) return;
+      try{ audio.playbackRate=RATES[ri]; }catch(_){}
+      speed.textContent=rateLabel(RATES[ri]);
+      speed.classList.toggle('fast',RATES[ri]>1);
+      speed.setAttribute('aria-label',
+        (lang==='ar'?'سرعة التشغيل: ':'Vitesse de lecture : ')+rateLabel(RATES[ri]));
+    }
+    if(speed) speed.addEventListener('click',function(e){
+      e.stopPropagation();                 // la carte entière déclenche la lecture
+      ri=(ri+1)%RATES.length;
+      applyRate();
+      track('Audio_Speed',{rate:RATES[ri]});
+    });
+    // Certains navigateurs remettent playbackRate à 1 au chargement des données
+    audio.addEventListener('loadedmetadata',applyRate);
+    audio.addEventListener('play',applyRate);
+    // Les libellés doivent suivre un changement de langue
+    i18nHooks.push(function(){ applyRate(); icons(!audio.paused); });
+    applyRate();
+
     play.addEventListener('click',function(e){ e.stopPropagation(); toggle(); });
     // Toute la carte déclenche la lecture, sauf l'onde qui sert à se déplacer
     if(card) card.addEventListener('click',function(e){
