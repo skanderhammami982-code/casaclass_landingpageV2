@@ -156,15 +156,24 @@ la promotion (le plus bas des 30 derniers jours). Si ces montants n'ont jamais
 - [ ] L'**URL finale** de la page (pour les publicités)
 - [ ] La destination des **leads** (webhook, CRM ou e-mail)
 - [ ] L'**identifiant du pixel** Meta
+- [ ] Un **accès en écriture au dépôt git** du projet (voir section 6)
 - [ ] Confirmation que la **vidéo et l'audio se lisent** depuis un vrai téléphone
 
 ---
 
-## 6. Modifications ultérieures
+## 6. Déploiement depuis git et accès
 
-Si la page est modifiée directement sur le serveur, la version en ligne et le
-dépôt divergent, et la mise à jour suivante écrasera ces changements. Deux
-options propres :
+Merci de **placer le projet sous git et de relier l'hébergement à ce dépôt**,
+puis de me donner un **accès en écriture**.
 
-1. déployer depuis le dépôt GitHub, qui reste la référence ;
+Cette page va vivre : tarifs de rentrée à faire évoluer, témoignage à compléter,
+textes à ajuster selon les résultats des campagnes. Ces modifications doivent
+pouvoir se faire directement, sans repasser par un envoi de fichiers à chaque
+fois.
+
+Si la page est modifiée directement sur le serveur sans passer par git, la
+version en ligne et le dépôt divergent, et la mise à jour suivante écrase ces
+changements. Deux options propres :
+
+1. déployer depuis le dépôt git, qui reste la référence ;
 2. ou signaler les modifications faites, pour qu'elles soient reportées.
