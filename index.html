@@ -599,9 +599,10 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
         </button>
         <span class="vn-wave" id="vnWave" aria-hidden="true"></span>
         <span class="vn-time" id="vnTime">1:17</span>
-        <!-- Vitesse cyclique 1× → 1,5× → 2×, comme dans WhatsApp : un message
-             d'1 min 17 devient 39 secondes, ce qui lève l'hésitation à lancer. -->
-        <button class="vn-speed" id="vnSpeed" type="button" aria-label="Vitesse de lecture">1×</button>
+        <!-- Vitesse cyclique, comme dans WhatsApp. Réglée sur 1,5× par défaut :
+             le message d'1 min 17 tient alors en 51 secondes, ce qui lève
+             l'hésitation à le lancer. Le libellé est écrit par le script. -->
+        <button class="vn-speed fast" id="vnSpeed" type="button" aria-label="Vitesse de lecture">1,5×</button>
       </div>
 
       <!-- data-duration : durée réelle du fichier, en secondes. Les fichiers
@@ -1363,8 +1364,10 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
         track('Audio_Play',{id:'temoignage'});
       } else audio.pause();
     }
-    /* ---- Vitesse de lecture ---- */
-    var RATES=[1,1.5,2], ri=0;
+    /* ---- Vitesse de lecture ----
+       Démarre à 1,5× : la pastille est allumée d'entrée, ce qui signale
+       la fonction, et le message d'1 min 17 tient en 51 secondes. */
+    var RATES=[1,1.5,2], ri=1;
     function rateLabel(r){ return String(r).replace('.', lang==='ar'?'.':',')+'×'; }
     function applyRate(){
       if(!speed) return;
