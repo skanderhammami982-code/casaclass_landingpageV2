@@ -41,6 +41,23 @@
      4. Le endpoint du formulaire   → voir la fonction sendLead() en bas de page
      ============================================================================ -->
 
+<!-- ── Pixel Meta — ensemble de données « casaclass » ──────────────────────
+     Le même pixel équipe déjà www.casaclassroom.com : les deux sources se
+     retrouveront dans le même ensemble de données. Voir la note sur les
+     conversions personnalisées dans le fichier LIVRAISON.md. -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1425750225925293');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=1425750225925293&ev=PageView&noscript=1"></noscript>
+
+<link rel="preconnect" href="https://connect.facebook.net">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -980,11 +997,29 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
   };
   var lead={age:'',cta_source:'inline'};
 
+  /* Meta distingue les évènements standards, sur lesquels une campagne peut
+     optimiser, des évènements personnalisés, qui servent surtout à bâtir des
+     audiences de reciblage. Les deux passent par la même fonction. */
+  var FB_STANDARD={Lead:1,Contact:1,ViewContent:1,CompleteRegistration:1,
+                   InitiateCheckout:1,Schedule:1,SubmitApplication:1};
+
   function track(event,data){
-    // Pixel Meta — décommentez une fois le pixel installé :
-    // if(window.fbq) fbq('track', event, data);
+    if(window.fbq){
+      try{
+        if(FB_STANDARD[event]) fbq('track',event,data||{});
+        else fbq('trackCustom',event,data||{});
+      }catch(_){}
+    }
     if(window.dataLayer) window.dataLayer.push(Object.assign({event:event},data||{}));
   }
+
+  /* Clic vers WhatsApp : c'est une prise de contact, au même titre qu'un
+     formulaire envoyé. Meta a un évènement standard pour ça. */
+  $$('a[href*="wa.me"]').forEach(function(a){
+    a.addEventListener('click',function(){
+      track('Contact',{method:'whatsapp',emplacement:a.closest('.final')?'cta_final':'confirmation'});
+    });
+  });
 
   /* ==========================================================
      BILINGUE FR / AR
