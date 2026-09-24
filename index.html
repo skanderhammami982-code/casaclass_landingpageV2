@@ -1543,6 +1543,8 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
     if(!ok){var fb=$('.field.bad input');if(fb)fb.focus();return}
 
     var payload=Object.assign({
+      date:new Date().toISOString(),
+      source:'landing_page',        // distingue ces leads de ceux du formulaire Meta
       prenom_parent:parent.value.trim(),
       prenom_enfant:child.value.trim(),
       whatsapp:tel.value.trim(),
@@ -1563,18 +1565,40 @@ html[dir="rtl"] input[type="tel"]{direction:ltr}
   });
 
   /* ------------------------------------------------------------------
-     À BRANCHER : envoi réel du lead.
-     Exemple avec un webhook Make/Zapier ou votre CRM :
+     ENVOI DU LEAD
 
-     function sendLead(d){
-       fetch('https://hook.eu2.make.com/VOTRE_WEBHOOK',{
-         method:'POST',
-         headers:{'Content-Type':'application/json'},
-         body:JSON.stringify(d)
-       });
-     }
+     Une seule ligne à renseigner : LEAD_ENDPOINT ci-dessous.
+     Y coller soit l'URL du script Google Apps Script déployé en
+     application web (elle se termine par /exec), soit l'URL d'un
+     webhook Make ou Zapier.
+
+     Tant que cette valeur est vide, les leads ne sont qu'affichés dans la
+     console du navigateur : AUCUN PROSPECT N'EST ENREGISTRÉ.
      ------------------------------------------------------------------ */
-  function sendLead(d){ console.log('Lead CasaClass :',d); }
+  var LEAD_ENDPOINT='';
+
+  function sendLead(d){
+    if(!LEAD_ENDPOINT){
+      console.warn('Lead CasaClass — aucun endpoint configuré, rien n\'est enregistré :',d);
+      return;
+    }
+    var body=JSON.stringify(d);
+    /* text/plain évite la requête de pré-vérification CORS, que ni Apps
+       Script ni la plupart des webhooks ne savent traiter. Le contenu
+       reste du JSON, lu tel quel côté serveur. */
+    var type='text/plain;charset=UTF-8';
+
+    // sendBeacon survit à la fermeture de l'onglet juste après l'envoi
+    try{
+      if(navigator.sendBeacon &&
+         navigator.sendBeacon(LEAD_ENDPOINT,new Blob([body],{type:type}))) return;
+    }catch(_){}
+
+    try{
+      fetch(LEAD_ENDPOINT,{method:'POST',mode:'no-cors',
+        headers:{'Content-Type':type},body:body,keepalive:true});
+    }catch(e){ console.error('Envoi du lead impossible :',e); }
+  }
 
   onScroll();
 })();
